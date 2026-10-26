@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Motion Interpolation Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Interpolation study: intro -> 13 examples (motion A and motion B on top; two methods below, each one row of five videos going from
+   A to B, shown in shuffled order as Method 1 / Method 2; pick the better one) -> answers posted to the sheet (config.js ENDPOINT).
+   Nothing on screen says which method made which row. Tokens match the ranking study. */
+:root {
+  --bg: #f4f5f7; --panel: #ffffff; --ink: #15171f; --muted: #5b6070; --line: #d9dce4; --accent: #2f5bd3; --accent-ink: #ffffff;
+  --accent-soft: #e4eafb; --frame: #0b0c10; --warn: #9a3412; --warn-soft: #fdeee4; --a: #0f766e; --b: #b45309;
+  --body: "Instrument Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #111217; --panel: #1a1c24; --ink: #e9eaf0; --muted: #9da1b1; --line: #2c2f3b; --accent: #8ea8ff; --accent-ink: #0d1020;
+  --accent-soft: #232a45; --frame: #000000; --warn: #fdba74; --warn-soft: #3a2414; --a: #5eead4; --b: #fbbf24; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #111217; --panel: #1a1c24; --ink: #e9eaf0; --muted: #9da1b1; --line: #2c2f3b; --accent: #8ea8ff; --accent-ink: #0d1020;
+  --accent-soft: #232a45; --frame: #000000; --warn: #fdba74; --warn-soft: #3a2414; --a: #5eead4; --b: #fbbf24; color-scheme: dark }
+* { box-sizing: border-box }
+html, body { margin: 0 }
+body { background: var(--bg); color: var(--ink); font: 15px/1.55 var(--body); -webkit-font-smoothing: antialiased }
+[hidden] { display: none !important }
+button { font: inherit; color: inherit }
+.screen { max-width: 1320px; margin: 0 auto; padding: 18px 16px 0 }
+.card { max-width: 680px; margin: max(24px, 7vh) auto 40px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+  padding: 28px 30px 30px; display: grid; gap: 14px }
+h1 { font: 700 1.75rem/1.15 var(--body); margin: 0; letter-spacing: -.015em; text-wrap: balance }
+h2 { font: 650 1.3rem/1.2 var(--body); margin: 0 }
+.card p { margin: 0 } .muted { color: var(--muted) }
+ol.steps { margin: 0; padding-left: 1.3em; display: grid; gap: 8px }
+.notice { background: var(--warn-soft); color: var(--warn); border-radius: 8px; padding: 10px 14px; font-size: .92rem }
+.btn { cursor: pointer; border: 1px solid var(--line); background: var(--panel); padding: 9px 18px; border-radius: 9px; font-weight: 600 }
+.btn:hover:not(:disabled) { border-color: var(--muted) }
+.btn:disabled { opacity: .4; cursor: default }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink) }
+.btn:focus-visible, .mrow:focus-visible, .linkish:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px }
+.linkish { all: unset; cursor: pointer; color: var(--accent); text-decoration: underline; font-size: .9rem }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center }
+.ka { color: var(--a); font-weight: 700 } .kb { color: var(--b); font-weight: 700 }
+
+/* trial */
+.thead { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; align-items: center }
+.count { font-weight: 650; font-variant-numeric: tabular-nums }
+.progress { height: 6px; border-radius: 3px; background: var(--line); overflow: hidden } .progress i { display: block; height: 100%; background: var(--accent); transition: width .25s }
+.ask { grid-column: 1 / -1; margin: 0; color: var(--muted) } .ask b { color: var(--ink) }
+.stage { display: grid; gap: 14px; margin-top: 14px; --srch: clamp(110px, 20vh, 200px) }
+.srcs { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap }
+.srcs figure { margin: 0; display: grid; gap: 4px; justify-items: center }
+.lab { font: 650 .78rem var(--body); text-transform: uppercase; letter-spacing: .07em; color: var(--muted) }
+.lab.ka, .lab.kb { font-weight: 700 } .lab.ka { color: var(--a) } .lab.kb { color: var(--b) }
+.frame { background: var(--frame); border-radius: 8px; overflow: hidden }
+.frame video { width: 100%; height: 100%; object-fit: contain; display: block }
+.srcs .frame { aspect-ratio: var(--sar); height: var(--srch) }
+.srcs .frame.a { box-shadow: 0 0 0 3px var(--a) } .srcs .frame.b { box-shadow: 0 0 0 3px var(--b) }
+.mrow { all: unset; cursor: pointer; display: grid; gap: 6px; padding: 10px 12px 12px; border-radius: 12px; background: var(--panel);
+  border: 2px solid var(--line); transition: border-color .12s, background .12s }
+.mrow:hover { border-color: var(--muted) }
+.mrow.on { border-color: var(--accent); background: var(--accent-soft) }
+.mhead { display: flex; align-items: center; gap: 10px; justify-content: space-between }
+.mname { font-weight: 700; font-size: 1.02rem } .mrow.on .mname { color: var(--accent) }
+.pickmark { font-size: .85rem; font-weight: 650; color: var(--accent) } .mrow:not(.on) .pickmark { visibility: hidden }
+.mrow .frame { aspect-ratio: var(--rar); width: min(100%, calc(var(--rowh) * var(--rar))); margin-inline: auto }
+.scale { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; font-size: .78rem; font-weight: 650;
+  width: min(100%, calc(var(--rowh) * var(--rar))); margin-inline: auto }
+.scale i { height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--a), var(--b)) }
+/* row height that keeps header, sources, both rows and the bottom bar on one screen (measured overhead ~420 px) */
+#stage { --rowh: calc((100vh - 420px - var(--srch)) / 2) }
+@supports (height: 100dvh) { #stage { --rowh: calc((100dvh - 420px - var(--srch)) / 2) } }
+.bar { position: sticky; bottom: 0; margin: 16px -16px 0; padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px)); background: var(--bg);
+  border-top: 1px solid var(--line); display: flex; gap: 12px 20px; align-items: center; justify-content: space-between; flex-wrap: wrap }
+.choice { color: var(--muted); font-size: .92rem } .choice b { color: var(--ink) }
+.acts { display: flex; gap: 8px }
+pre.dump { max-height: 260px; overflow: auto; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 10px; font-size: .75rem; margin: 0 }
+@media (max-width: 820px) {
+  #stage { --rowh: 1000px }
+  .srcs { flex-wrap: nowrap } .srcs figure { flex: 1 1 0; min-width: 0 } .srcs .frame { height: auto; width: 100% }
+  .card { padding: 22px 18px 24px }
+  .mrow { padding: 8px 8px 10px }
+}
+</style>
+</head>
+<body>
+<noscript><p style="padding:16px">This study needs JavaScript.</p></noscript>
+
+<main id="intro" class="screen">
+  <div class="card">
+    <h1>Motion interpolation study</h1>
+    <p>Thank you for taking part. It takes about 5 minutes and is anonymous.</p>
+    <ol class="steps" id="steps"></ol>
+    <p class="muted">All videos loop and play together. There are no right answers; go with your impression. A laptop or desktop screen works best.</p>
+    <p class="notice" id="again" hidden>You have already completed this study on this device. Thank you! <button type="button" class="linkish" id="again-go">Take it again anyway</button></p>
+    <p class="notice" id="preview" hidden>Preview mode: no answer endpoint is set in config.js, so nothing will be sent.</p>
+    <div class="row"><button type="button" class="btn primary" id="start">Start</button></div>
+  </div>
+</main>
+
+<main id="trial" class="screen" hidden>
+  <header class="thead">
+    <div class="count" id="count"></div>
+    <div class="progress" aria-hidden="true"><i id="prog"></i></div>
+    <p class="ask"><b>Which method interpolates better between <span class="ka">motion A</span> and <span class="kb">motion B</span>?</b>
+      In each row the left video should follow motion A, the right video motion B, and the videos in between should move step by step from
+      one to the other. Click a row to choose it.</p>
+  </header>
+  <div class="stage" id="stage">
+    <div class="srcs">
+      <figure><span class="lab ka">Motion A</span><div class="frame a" id="fa"></div></figure>
+      <figure><span class="lab kb">Motion B</span><div class="frame b" id="fb"></div></figure>
+    </div>
+    <div id="rows" class="stage" style="margin-top:0" role="radiogroup" aria-label="Methods"></div>
+  </div>
+  <footer class="bar">
+    <div class="choice" id="choice" aria-live="polite"></div>
+    <div class="acts">
+      <button type="button" class="btn" id="back">Back</button>
+      <button type="button" class="btn primary" id="next" disabled>Next</button>
+    </div>
+  </footer>
+</main>
+
+<main id="done" class="screen" hidden>
+  <div class="card">
+    <h2 id="done-h">Sending your answers…</h2>
+    <p id="done-p" class="muted">Please keep this page open for a moment.</p>
+    <div class="row"><button type="button" class="btn primary" id="retry" hidden>Try again</button></div>
+    <pre class="dump" id="dump" hidden></pre>
+  </div>
+</main>
+
+<script src="config.js"></script>
+<script src="data.js"></script>
+<script>
+const NAMES = ['Method 1', 'Method 2'], DONE_KEY = `us_${STUDY.study}_v${STUDY.version}_done`;
+const $ = id => document.getElementById(id);
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+};
+const rnd = n => crypto.getRandomValues(new Uint32Array(1))[0] % n;
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = rnd(i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const uid = () => crypto.randomUUID ? crypto.randomUUID()
+  : [...crypto.getRandomValues(new Uint8Array(16))].map(b => b.toString(16).padStart(2, '0')).join('');
+
+const pid = store.get('us_pid') || uid(); store.set('us_pid', pid);
+const sub = uid(), endpoint = typeof ENDPOINT === 'string' ? ENDPOINT.trim() : '';
+// every participant gets their own example order and their own method order within each example
+const plan = shuffle(STUDY.trials).map(t => ({t, shown: shuffle(STUDY.methods), pick: null, ms: 0}));
+let cur = -1, t0 = 0, started = null, payload = null, warm = [];
+
+$('steps').innerHTML = [
+  `Each of the <b>${plan.length}</b> examples shows two videos: <b class="ka">motion A</b> and <b class="kb">motion B</b>.`,
+  `Below them, two methods each show a row of five videos of the same character. The left video should follow motion A and the right
+   video motion B; the videos in between should move step by step from one motion to the other.`,
+  `Choose the method that <b>interpolates better between the two motions</b>. Which method is which is shuffled every time.`,
+].map(s => `<li>${s}</li>`).join('');
+if (store.get(DONE_KEY)) { $('again').hidden = false; $('start').hidden = true; }
+if (!endpoint) $('preview').hidden = false;
+$('again-go').onclick = () => { $('again').hidden = true; $('start').hidden = false; $('start').focus(); };
+$('start').onclick = () => { started = new Date().toISOString(); $('intro').hidden = true; $('trial').hidden = false; show(0); };
+
+function sync(vs) {                         // motion A restarts everything, so all clips stay in step
+  const master = vs[0], restart = () => vs.forEach(v => { try { v.currentTime = 0; v.play().catch(() => {}); } catch (e) {} });
+  master.addEventListener('ended', restart); let ready = 0;
+  vs.forEach(v => v.addEventListener('canplay', () => { if (++ready === vs.length) restart(); }, {once: true}));
+  setTimeout(() => { if (ready < vs.length && vs[0].isConnected) restart(); }, 2000);
+}
+
+function preload(p) {                       // warm the next example's clips so it starts at once
+  warm = !p ? [] : [p.t.a, p.t.b, ...p.shown.map(k => p.t.rows[k])].map(src => {
+    const v = document.createElement('video'); v.muted = true; v.preload = 'auto'; v.src = src; return v; });
+}
+
+const vid = src => `<video src="${src}" muted playsinline preload="auto"></video>`;
+function show(i) {
+  if (cur >= 0) plan[cur].ms += performance.now() - t0;
+  cur = i; t0 = performance.now(); const p = plan[i], t = p.t, st = $('stage');
+  st.style.setProperty('--sar', t.source_aspect); st.style.setProperty('--rar', t.row_aspect);
+  $('count').textContent = `Example ${i + 1} of ${plan.length}`;
+  $('prog').style.width = `${100 * i / plan.length}%`;
+  $('fa').innerHTML = vid(t.a); $('fb').innerHTML = vid(t.b);
+  $('rows').innerHTML = p.shown.map((k, j) => `<button type="button" class="mrow" role="radio" data-j="${j}">
+    <span class="mhead"><span class="mname">${NAMES[j]}</span><span class="pickmark">Your choice</span></span>
+    <span class="frame">${vid(t.rows[k])}</span>
+    <span class="scale"><span class="ka">Motion A</span><i></i><span class="kb">Motion B</span></span></button>`).join('');
+  sync([$('fa').querySelector('video'), $('fb').querySelector('video'), ...$('rows').querySelectorAll('video')]);
+  $('back').disabled = i === 0; $('next').textContent = i === plan.length - 1 ? 'Finish' : 'Next';
+  paint(); preload(plan[i + 1]); window.scrollTo(0, 0);
+}
+
+function paint() {
+  const p = plan[cur];
+  $('rows').querySelectorAll('.mrow').forEach(b => { const on = +b.dataset.j === p.pick; b.classList.toggle('on', on); b.setAttribute('aria-checked', on); });
+  $('choice').innerHTML = p.pick == null ? 'Click the row of the method that interpolates better.' : `Your choice: <b>${NAMES[p.pick]}</b>`;
+  $('next').disabled = p.pick == null;
+}
+
+$('rows').addEventListener('click', e => { const b = e.target.closest('.mrow'); if (b) { plan[cur].pick = +b.dataset.j; paint(); } });
+$('back').onclick = () => cur > 0 && show(cur - 1);
+$('next').onclick = () => { if ($('next').disabled) return; cur < plan.length - 1 ? show(cur + 1) : finish(); };
+document.addEventListener('keydown', e => {
+  if ($('trial').hidden || e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.key === '1' || e.key === '2') { e.preventDefault(); plan[cur].pick = +e.key - 1; paint(); }
+  else if (e.key === 'Enter' && !$('next').disabled) { e.preventDefault(); $('next').click(); }
+});
+window.addEventListener('beforeunload', e => { if (started && !payload) { e.preventDefault(); e.returnValue = ''; } });
+
+function finish() {
+  plan[cur].ms += performance.now() - t0;
+  const fin = new Date().toISOString(), scr = `${screen.width}x${screen.height}`;
+  const columns = ['submission', 'participant', 'position', 'trial', 'kind', 'motion_a', 'motion_b', 'target', 'choice', 'ours_chosen',
+    'shown', 'seconds', 'started', 'finished', 'screen', 'user_agent'];
+  const rows = plan.map((p, n) => {
+    const choice = p.shown[p.pick];
+    return [sub, pid, n + 1, p.t.id, p.t.kind, p.t.motion_a, p.t.motion_b, p.t.target, choice, choice === 'ours' ? 1 : 0,
+      p.shown.map((k, j) => `${j + 1}=${k}`).join(' '), Math.round(p.ms / 100) / 10, started, fin, scr, navigator.userAgent];
+  });
+  payload = {study: STUDY.study, version: STUDY.version, seed: STUDY.seed, submission: sub, participant: pid, started, finished: fin, columns, rows};
+  $('trial').hidden = true; $('done').hidden = false; send();
+}
+
+async function send() {
+  const say = (h, p) => { $('done-h').textContent = h; $('done-p').textContent = p; };
+  $('retry').hidden = true; say('Sending your answers…', 'Please keep this page open for a moment.');
+  if (!endpoint) {
+    say('Preview finished', 'No answer endpoint is set in config.js, so nothing was sent. This is what would have been sent:');
+    $('dump').hidden = false; $('dump').textContent = JSON.stringify(payload, null, 1); return;
+  }
+  const body = JSON.stringify(payload), ok = () => { store.set(DONE_KEY, sub); say('Thank you!', 'Your answers have been recorded. You can close this page now.'); };
+  const fail = () => { say('Your answers were not sent yet', 'Please check your connection and try again.'); $('retry').hidden = false; };
+  let r;
+  try { r = await fetch(endpoint, {method: 'POST', body}); }
+  catch (e) {                               // the reply could not be read (network or CORS): send blind; the sheet drops repeats
+    try { await fetch(endpoint, {method: 'POST', mode: 'no-cors', body}); return ok(); } catch (e2) { return fail(); }
+  }
+  try { (await r.json()).ok ? ok() : fail(); } catch (e) { fail(); }
+}
+$('retry').onclick = send;
+</script>
+</body>
+</html>
