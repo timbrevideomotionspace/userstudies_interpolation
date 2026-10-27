@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap">
 <style>
-/* Interpolation study: intro -> the examples (motion A and motion B on top; two methods below, each one row of five videos going from
+/* Interpolation study: intro -> the examples (motion A, motion B and the target image on top; two methods below, each one row of five videos going from
    A to B, shown in shuffled order as Method 1 / Method 2; pick the better one) -> answers posted to the sheet (config.js ENDPOINT).
    Nothing on screen says which method made which row. Tokens match the ranking study. */
 :root {
@@ -54,9 +54,9 @@ ol.steps { margin: 0; padding-left: 1.3em; display: grid; gap: 8px }
 .lab { font: 650 .78rem var(--body); text-transform: uppercase; letter-spacing: .07em; color: var(--muted) }
 .lab.ka, .lab.kb { font-weight: 700 } .lab.ka { color: var(--a) } .lab.kb { color: var(--b) }
 .frame { background: var(--frame); border-radius: 8px; overflow: hidden }
-.frame video { width: 100%; height: 100%; object-fit: contain; display: block }
+.frame video, .frame img { width: 100%; height: 100%; object-fit: contain; display: block }
 .srcs .frame { aspect-ratio: var(--sar); height: var(--srch) }
-.srcs .frame.a { box-shadow: 0 0 0 3px var(--a) } .srcs .frame.b { box-shadow: 0 0 0 3px var(--b) }
+.srcs .frame.a { box-shadow: 0 0 0 3px var(--a) } .srcs .frame.b { box-shadow: 0 0 0 3px var(--b) } .srcs .frame.t { aspect-ratio: var(--tar) }
 .mrow { all: unset; cursor: pointer; display: grid; gap: 6px; padding: 10px 12px 12px; border-radius: 12px; background: var(--panel);
   border: 2px solid var(--line); transition: border-color .12s, background .12s }
 .mrow:hover { border-color: var(--muted) }
@@ -111,6 +111,7 @@ pre.dump { max-height: 260px; overflow: auto; background: var(--bg); border: 1px
     <div class="srcs">
       <figure><span class="lab ka">Motion A</span><div class="frame a" id="fa"></div></figure>
       <figure><span class="lab kb">Motion B</span><div class="frame b" id="fb"></div></figure>
+      <figure><span class="lab">Target image</span><div class="frame t" id="ft"></div></figure>
     </div>
     <div id="rows" class="stage" style="margin-top:0" role="radiogroup" aria-label="Methods"></div>
   </div>
@@ -153,8 +154,8 @@ const plan = shuffle(STUDY.trials).map(t => ({t, shown: shuffle(STUDY.methods), 
 let cur = -1, t0 = 0, started = null, payload = null, warm = [];
 
 $('steps').innerHTML = [
-  `Each of the <b>${plan.length}</b> examples shows two videos: <b class="ka">motion A</b> and <b class="kb">motion B</b>.`,
-  `Below them, two methods each show a row of five videos of the same character. The left video should follow motion A and the right
+  `Each of the <b>${plan.length}</b> examples shows two videos, <b class="ka">motion A</b> and <b class="kb">motion B</b>, and a <b>target image</b>.`,
+  `Below them, two methods each animate the target image as a row of five videos. The left video should follow motion A and the right
    video motion B; the videos in between should move step by step from one motion to the other.`,
   `Choose the method that <b>interpolates better between the two motions</b>. Which method is which is shuffled every time.`,
 ].map(s => `<li>${s}</li>`).join('');
@@ -173,16 +174,17 @@ function sync(vs) {                         // motion A restarts everything, so 
 function preload(p) {                       // warm the next example's clips so it starts at once
   warm = !p ? [] : [p.t.a, p.t.b, ...p.shown.map(k => p.t.rows[k])].map(src => {
     const v = document.createElement('video'); v.muted = true; v.preload = 'auto'; v.src = src; return v; });
+  if (p) { const im = new Image(); im.src = p.t.image; warm.push(im); }
 }
 
 const vid = src => `<video src="${src}" muted playsinline preload="auto"></video>`;
 function show(i) {
   if (cur >= 0) plan[cur].ms += performance.now() - t0;
   cur = i; t0 = performance.now(); const p = plan[i], t = p.t, st = $('stage');
-  st.style.setProperty('--sar', t.source_aspect); st.style.setProperty('--rar', t.row_aspect);
+  st.style.setProperty('--sar', t.source_aspect); st.style.setProperty('--rar', t.row_aspect); st.style.setProperty('--tar', t.aspect);
   $('count').textContent = `Example ${i + 1} of ${plan.length}`;
   $('prog').style.width = `${100 * i / plan.length}%`;
-  $('fa').innerHTML = vid(t.a); $('fb').innerHTML = vid(t.b);
+  $('fa').innerHTML = vid(t.a); $('fb').innerHTML = vid(t.b); $('ft').innerHTML = `<img src="${t.image}" alt="Target image">`;
   $('rows').innerHTML = p.shown.map((k, j) => `<button type="button" class="mrow" role="radio" data-j="${j}">
     <span class="mhead"><span class="mname">${NAMES[j]}</span><span class="pickmark">Your choice</span></span>
     <span class="frame">${vid(t.rows[k])}</span>
