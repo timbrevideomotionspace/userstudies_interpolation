@@ -112,7 +112,7 @@ pre.dump { max-height: 260px; overflow: auto; background: var(--bg); border: 1px
     <div class="srcs">
       <figure><span class="lab ka">Motion A</span><div class="frame a" id="fa"></div></figure>
       <figure><span class="lab kb">Motion B</span><div class="frame b" id="fb"></div></figure>
-      <figure><span class="lab">Target image</span><div class="frame t" id="ft"></div></figure>
+      <figure><span class="lab">Target Subject</span><div class="frame t" id="ft"></div></figure>
     </div>
     <div id="rows" class="stage" style="margin-top:0" role="radiogroup" aria-label="Methods"></div>
   </div>
@@ -186,7 +186,7 @@ function show(i) {
   st.style.setProperty('--sar', t.source_aspect); st.style.setProperty('--rar', t.row_aspect); st.style.setProperty('--tar', t.aspect);
   $('count').textContent = `Example ${i + 1} of ${plan.length}`;
   $('prog').style.width = `${100 * i / plan.length}%`;
-  $('fa').innerHTML = vid(V(t).a); $('fb').innerHTML = vid(V(t).b); $('ft').innerHTML = `<img src="${t.image}" alt="Target image">`;
+  $('fa').innerHTML = vid(V(t).a); $('fb').innerHTML = vid(V(t).b); $('ft').innerHTML = `<img src="${t.image}" alt="Target subject">`;
   $('rows').innerHTML = p.shown.map((k, j) => `<button type="button" class="mrow" role="radio" data-j="${j}">
     <span class="mhead"><span class="mname">${NAMES[j]}</span><span class="pickmark">Your choice</span></span>
     <span class="frame">${vid(V(t).rows[k])}</span>

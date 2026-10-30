@@ -1,7 +1,7 @@
 // generated -- do not edit by hand
 const STUDY = {
  "study": "interpolation",
- "version": 6,
+ "version": 7,
  "seed": 20261026,
  "methods": [
   "ours",
@@ -245,23 +245,23 @@ const STUDY = {
    "kind": "transition",
    "motion_a": "taichi",
    "motion_b": "fast_punches",
-   "target": "12_gingerbread_man",
+   "target": "kitchen_chef",
    "image": "media/p13_target.jpg",
-   "aspect": 1.0,
-   "row_aspect": 5.1185,
+   "aspect": 1.8,
+   "row_aspect": 9.1185,
    "source_aspect": 1.7333,
    "a": "media/p13_a.mp4",
    "b": "media/p13_b.mp4",
    "rows": {
-    "ours": "media/p13_da63fdb7.mp4",
-    "dismo": "media/p13_dbd51187.mp4"
+    "ours": "media/p13_c11bd3b2.mp4",
+    "dismo": "media/p13_402fec01.mp4"
    },
    "resampled": {
     "a": "media_r/p13_a.mp4",
     "b": "media_r/p13_b.mp4",
     "rows": {
-     "ours": "media_r/p13_da63fdb7.mp4",
-     "dismo": "media_r/p13_dbd51187.mp4"
+     "ours": "media_r/p13_c11bd3b2.mp4",
+     "dismo": "media_r/p13_402fec01.mp4"
     }
    }
   }
