@@ -30,6 +30,14 @@ const STUDY = {
    "rows": {
     "ours": "media/p01_30068e4b.mp4",
     "dismo": "media/p01_76a8260a.mp4"
+   },
+   "resampled": {
+    "a": "media_r/p01_a.mp4",
+    "b": "media_r/p01_b.mp4",
+    "rows": {
+     "ours": "media_r/p01_30068e4b.mp4",
+     "dismo": "media_r/p01_76a8260a.mp4"
+    }
    }
   },
   {
@@ -47,6 +55,14 @@ const STUDY = {
    "rows": {
     "ours": "media/p02_0b7b9702.mp4",
     "dismo": "media/p02_5f25d659.mp4"
+   },
+   "resampled": {
+    "a": "media_r/p02_a.mp4",
+    "b": "media_r/p02_b.mp4",
+    "rows": {
+     "ours": "media_r/p02_0b7b9702.mp4",
+     "dismo": "media_r/p02_5f25d659.mp4"
+    }
    }
   },
   {
@@ -64,6 +80,14 @@ const STUDY = {
    "rows": {
     "ours": "media/p03_3914d531.mp4",
     "dismo": "media/p03_c5d0dc29.mp4"
+   },
+   "resampled": {
+    "a": "media_r/p03_a.mp4",
+    "b": "media_r/p03_b.mp4",
+    "rows": {
+     "ours": "media_r/p03_3914d531.mp4",
+     "dismo": "media_r/p03_c5d0dc29.mp4"
+    }
    }
   },
   {
@@ -81,6 +105,14 @@ const STUDY = {
    "rows": {
     "ours": "media/p04_9c0b7e7c.mp4",
     "dismo": "media/p04_14fe361e.mp4"
+   },
+   "resampled": {
+    "a": "media_r/p04_a.mp4",
+    "b": "media_r/p04_b.mp4",
+    "rows": {
+     "ours": "media_r/p04_9c0b7e7c.mp4",
+     "dismo": "media_r/p04_14fe361e.mp4"
+    }
    }
   },
   {
@@ -98,6 +130,14 @@ const STUDY = {
    "rows": {
     "ours": "media/p05_372a61eb.mp4",
     "dismo": "media/p05_ef109031.mp4"
+   },
+   "resampled": {
+    "a": "media_r/p05_a.mp4",
+    "b": "media_r/p05_b.mp4",
+    "rows": {
+     "ours": "media_r/p05_372a61eb.mp4",
+     "dismo": "media_r/p05_ef109031.mp4"
+    }
    }
   },
   {
@@ -115,6 +155,14 @@ const STUDY = {
    "rows": {
     "ours": "media/p07_d4fb5af7.mp4",
     "dismo": "media/p07_107b5d20.mp4"
+   },
+   "resampled": {
+    "a": "media_r/p07_a.mp4",
+    "b": "media_r/p07_b.mp4",
+    "rows": {
+     "ours": "media_r/p07_d4fb5af7.mp4",
+     "dismo": "media_r/p07_107b5d20.mp4"
+    }
    }
   },
   {
@@ -132,6 +180,14 @@ const STUDY = {
    "rows": {
     "ours": "media/p08_e6f500f5.mp4",
     "dismo": "media/p08_68bc5159.mp4"
+   },
+   "resampled": {
+    "a": "media_r/p08_a.mp4",
+    "b": "media_r/p08_b.mp4",
+    "rows": {
+     "ours": "media_r/p08_e6f500f5.mp4",
+     "dismo": "media_r/p08_68bc5159.mp4"
+    }
    }
   },
   {
@@ -149,6 +205,14 @@ const STUDY = {
    "rows": {
     "ours": "media/p11_b3c5510f.mp4",
     "dismo": "media/p11_b3f576f3.mp4"
+   },
+   "resampled": {
+    "a": "media_r/p11_a.mp4",
+    "b": "media_r/p11_b.mp4",
+    "rows": {
+     "ours": "media_r/p11_b3c5510f.mp4",
+     "dismo": "media_r/p11_b3f576f3.mp4"
+    }
    }
   },
   {
@@ -166,6 +230,14 @@ const STUDY = {
    "rows": {
     "ours": "media/p12_4e296b40.mp4",
     "dismo": "media/p12_b367e3c9.mp4"
+   },
+   "resampled": {
+    "a": "media_r/p12_a.mp4",
+    "b": "media_r/p12_b.mp4",
+    "rows": {
+     "ours": "media_r/p12_4e296b40.mp4",
+     "dismo": "media_r/p12_b367e3c9.mp4"
+    }
    }
   },
   {
@@ -183,6 +255,14 @@ const STUDY = {
    "rows": {
     "ours": "media/p13_da63fdb7.mp4",
     "dismo": "media/p13_dbd51187.mp4"
+   },
+   "resampled": {
+    "a": "media_r/p13_a.mp4",
+    "b": "media_r/p13_b.mp4",
+    "rows": {
+     "ours": "media_r/p13_da63fdb7.mp4",
+     "dismo": "media_r/p13_dbd51187.mp4"
+    }
    }
   }
  ]

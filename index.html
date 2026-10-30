@@ -9,7 +9,8 @@
 <style>
 /* Interpolation study: intro -> the examples (motion A, motion B and the target image on top; two methods below, each one row of five videos going from
    A to B, shown in shuffled order as Method 1 / Method 2; pick the better one) -> answers posted to the sheet (config.js ENDPOINT).
-   Nothing on screen says which method made which row. Tokens match the ranking study. */
+   Nothing on screen says which method made which row. Videos are the resampled copies (media_r/: 25 frames at 9 fps, like the ranking
+   study; media/ keeps the 24 fps originals); sent as `videos`. Tokens match the ranking study. */
 :root {
   --bg: #f4f5f7; --panel: #ffffff; --ink: #15171f; --muted: #5b6070; --line: #d9dce4; --accent: #2f5bd3; --accent-ink: #ffffff;
   --accent-soft: #e4eafb; --frame: #0b0c10; --warn: #9a3412; --warn-soft: #fdeee4; --a: #0f766e; --b: #b45309;
@@ -152,6 +153,7 @@ const sub = uid(), endpoint = typeof ENDPOINT === 'string' ? ENDPOINT.trim() : '
 // every participant gets their own example order and their own method order within each example
 const plan = shuffle(STUDY.trials).map(t => ({t, shown: shuffle(STUDY.methods), pick: null, ms: 0}));
 let cur = -1, t0 = 0, started = null, payload = null, warm = [];
+const mode = 'resampled', V = t => t.resampled;   // which copies to play: the 25 frames at 9 fps
 
 $('steps').innerHTML = [
   `Each of the <b>${plan.length}</b> examples shows two videos, <b class="ka">motion A</b> and <b class="kb">motion B</b>, and a <b>target image</b>.`,
@@ -172,7 +174,7 @@ function sync(vs) {                         // motion A restarts everything, so 
 }
 
 function preload(p) {                       // warm the next example's clips so it starts at once
-  warm = !p ? [] : [p.t.a, p.t.b, ...p.shown.map(k => p.t.rows[k])].map(src => {
+  warm = !p ? [] : [V(p.t).a, V(p.t).b, ...p.shown.map(k => V(p.t).rows[k])].map(src => {
     const v = document.createElement('video'); v.muted = true; v.preload = 'auto'; v.src = src; return v; });
   if (p) { const im = new Image(); im.src = p.t.image; warm.push(im); }
 }
@@ -184,10 +186,10 @@ function show(i) {
   st.style.setProperty('--sar', t.source_aspect); st.style.setProperty('--rar', t.row_aspect); st.style.setProperty('--tar', t.aspect);
   $('count').textContent = `Example ${i + 1} of ${plan.length}`;
   $('prog').style.width = `${100 * i / plan.length}%`;
-  $('fa').innerHTML = vid(t.a); $('fb').innerHTML = vid(t.b); $('ft').innerHTML = `<img src="${t.image}" alt="Target image">`;
+  $('fa').innerHTML = vid(V(t).a); $('fb').innerHTML = vid(V(t).b); $('ft').innerHTML = `<img src="${t.image}" alt="Target image">`;
   $('rows').innerHTML = p.shown.map((k, j) => `<button type="button" class="mrow" role="radio" data-j="${j}">
     <span class="mhead"><span class="mname">${NAMES[j]}</span><span class="pickmark">Your choice</span></span>
-    <span class="frame">${vid(t.rows[k])}</span>
+    <span class="frame">${vid(V(t).rows[k])}</span>
     <span class="scale"><span class="ka">Motion A</span><i></i><span class="kb">Motion B</span></span></button>`).join('');
   sync([$('fa').querySelector('video'), $('fb').querySelector('video'), ...$('rows').querySelectorAll('video')]);
   $('back').disabled = i === 0; $('next').textContent = i === plan.length - 1 ? 'Finish' : 'Next';
@@ -214,14 +216,14 @@ window.addEventListener('beforeunload', e => { if (started && !payload) { e.prev
 function finish() {
   plan[cur].ms += performance.now() - t0;
   const fin = new Date().toISOString(), scr = `${screen.width}x${screen.height}`;
-  const columns = ['submission', 'participant', 'position', 'trial', 'kind', 'motion_a', 'motion_b', 'target', 'choice', 'ours_chosen',
+  const columns = ['submission', 'participant', 'videos', 'position', 'trial', 'kind', 'motion_a', 'motion_b', 'target', 'choice', 'ours_chosen',
     'shown', 'seconds', 'started', 'finished', 'screen', 'user_agent'];
   const rows = plan.map((p, n) => {
     const choice = p.shown[p.pick];
-    return [sub, pid, n + 1, p.t.id, p.t.kind, p.t.motion_a, p.t.motion_b, p.t.target, choice, choice === 'ours' ? 1 : 0,
+    return [sub, pid, mode, n + 1, p.t.id, p.t.kind, p.t.motion_a, p.t.motion_b, p.t.target, choice, choice === 'ours' ? 1 : 0,
       p.shown.map((k, j) => `${j + 1}=${k}`).join(' '), Math.round(p.ms / 100) / 10, started, fin, scr, navigator.userAgent];
   });
-  payload = {study: STUDY.study, version: STUDY.version, seed: STUDY.seed, submission: sub, participant: pid, started, finished: fin, columns, rows};
+  payload = {study: STUDY.study, videos: mode, version: STUDY.version, seed: STUDY.seed, submission: sub, participant: pid, started, finished: fin, columns, rows};
   $('trial').hidden = true; $('done').hidden = false; send();
 }
 
