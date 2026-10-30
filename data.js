@@ -1,7 +1,7 @@
 // generated -- do not edit by hand
 const STUDY = {
  "study": "interpolation",
- "version": 8,
+ "version": 10,
  "seed": 20261026,
  "methods": [
   "ours",
@@ -20,23 +20,23 @@ const STUDY = {
    "kind": "composition",
    "motion_a": "walk_fwd",
    "motion_b": "arms_up",
-   "target": "08_wooden_mannequin_wide",
+   "target": "kitchen_chef",
    "image": "media/p01_target.jpg",
-   "aspect": 1.7333,
-   "row_aspect": 8.7852,
+   "aspect": 1.8,
+   "row_aspect": 9.1185,
    "source_aspect": 1.7333,
    "a": "media/p01_a.mp4",
    "b": "media/p01_b.mp4",
    "rows": {
-    "ours": "media/p01_30068e4b.mp4",
-    "dismo": "media/p01_76a8260a.mp4"
+    "ours": "media/p01_5ac87eeb.mp4",
+    "dismo": "media/p01_7517123a.mp4"
    },
    "resampled": {
     "a": "media_r/p01_a.mp4",
     "b": "media_r/p01_b.mp4",
     "rows": {
-     "ours": "media_r/p01_30068e4b.mp4",
-     "dismo": "media_r/p01_76a8260a.mp4"
+     "ours": "media_r/p01_5ac87eeb.mp4",
+     "dismo": "media_r/p01_7517123a.mp4"
     }
    }
   },
@@ -145,7 +145,7 @@ const STUDY = {
    "kind": "transition",
    "motion_a": "walk_fwd",
    "motion_b": "jump",
-   "target": "wooden_mannequin",
+   "target": "clay_hiker",
    "image": "media/p07_target.jpg",
    "aspect": 1.8,
    "row_aspect": 9.1185,
@@ -153,15 +153,15 @@ const STUDY = {
    "a": "media/p07_a.mp4",
    "b": "media/p07_b.mp4",
    "rows": {
-    "ours": "media/p07_d4fb5af7.mp4",
-    "dismo": "media/p07_107b5d20.mp4"
+    "ours": "media/p07_238cc481.mp4",
+    "dismo": "media/p07_b1e7092c.mp4"
    },
    "resampled": {
     "a": "media_r/p07_a.mp4",
     "b": "media_r/p07_b.mp4",
     "rows": {
-     "ours": "media_r/p07_d4fb5af7.mp4",
-     "dismo": "media_r/p07_107b5d20.mp4"
+     "ours": "media_r/p07_238cc481.mp4",
+     "dismo": "media_r/p07_b1e7092c.mp4"
     }
    }
   },
