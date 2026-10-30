@@ -1,7 +1,7 @@
 // generated -- do not edit by hand
 const STUDY = {
  "study": "interpolation",
- "version": 7,
+ "version": 8,
  "seed": 20261026,
  "methods": [
   "ours",
@@ -45,23 +45,23 @@ const STUDY = {
    "kind": "composition",
    "motion_a": "spin",
    "motion_b": "arms_out",
-   "target": "06_ballet_dancer_wide",
+   "target": "chrome_robot",
    "image": "media/p02_target.jpg",
-   "aspect": 1.7333,
-   "row_aspect": 8.7852,
+   "aspect": 1.8,
+   "row_aspect": 9.1185,
    "source_aspect": 1.7333,
    "a": "media/p02_a.mp4",
    "b": "media/p02_b.mp4",
    "rows": {
-    "ours": "media/p02_0b7b9702.mp4",
-    "dismo": "media/p02_5f25d659.mp4"
+    "ours": "media/p02_2ed0afe0.mp4",
+    "dismo": "media/p02_330868a1.mp4"
    },
    "resampled": {
     "a": "media_r/p02_a.mp4",
     "b": "media_r/p02_b.mp4",
     "rows": {
-     "ours": "media_r/p02_0b7b9702.mp4",
-     "dismo": "media_r/p02_5f25d659.mp4"
+     "ours": "media_r/p02_2ed0afe0.mp4",
+     "dismo": "media_r/p02_330868a1.mp4"
     }
    }
   },
