@@ -1,7 +1,7 @@
 // generated -- do not edit by hand
 const STUDY = {
  "study": "interpolation",
- "version": 10,
+ "version": 12,
  "seed": 20261026,
  "methods": [
   "ours",
@@ -145,7 +145,7 @@ const STUDY = {
    "kind": "transition",
    "motion_a": "walk_fwd",
    "motion_b": "jump",
-   "target": "clay_hiker",
+   "target": "wooden_mannequin",
    "image": "media/p07_target.jpg",
    "aspect": 1.8,
    "row_aspect": 9.1185,
@@ -153,15 +153,15 @@ const STUDY = {
    "a": "media/p07_a.mp4",
    "b": "media/p07_b.mp4",
    "rows": {
-    "ours": "media/p07_238cc481.mp4",
-    "dismo": "media/p07_b1e7092c.mp4"
+    "ours": "media/p07_d4fb5af7.mp4",
+    "dismo": "media/p07_107b5d20.mp4"
    },
    "resampled": {
     "a": "media_r/p07_a.mp4",
     "b": "media_r/p07_b.mp4",
     "rows": {
-     "ours": "media_r/p07_238cc481.mp4",
-     "dismo": "media_r/p07_b1e7092c.mp4"
+     "ours": "media_r/p07_d4fb5af7.mp4",
+     "dismo": "media_r/p07_107b5d20.mp4"
     }
    }
   },
@@ -220,7 +220,7 @@ const STUDY = {
    "kind": "transition",
    "motion_a": "sway",
    "motion_b": "jump_dance",
-   "target": "elegant_woman",
+   "target": "ballet_dancer",
    "image": "media/p12_target.jpg",
    "aspect": 1.8,
    "row_aspect": 9.1185,
@@ -228,15 +228,15 @@ const STUDY = {
    "a": "media/p12_a.mp4",
    "b": "media/p12_b.mp4",
    "rows": {
-    "ours": "media/p12_4e296b40.mp4",
-    "dismo": "media/p12_b367e3c9.mp4"
+    "ours": "media/p12_754f077c.mp4",
+    "dismo": "media/p12_12c42cd5.mp4"
    },
    "resampled": {
     "a": "media_r/p12_a.mp4",
     "b": "media_r/p12_b.mp4",
     "rows": {
-     "ours": "media_r/p12_4e296b40.mp4",
-     "dismo": "media_r/p12_b367e3c9.mp4"
+     "ours": "media_r/p12_754f077c.mp4",
+     "dismo": "media_r/p12_12c42cd5.mp4"
     }
    }
   },
