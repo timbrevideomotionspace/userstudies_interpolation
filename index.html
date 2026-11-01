@@ -107,10 +107,9 @@ pre.dump { max-height: 260px; overflow: auto; background: var(--bg); border: 1px
     <div class="count" id="count"></div>
     <div class="progress" aria-hidden="true"><i id="prog"></i></div>
     <p class="ask"><b>Which method, 1 or 2, interpolates better between <span class="ka">motion A</span> and <span class="kb">motion B</span> while properly
-      applying the interpolated motions to the target subject?</b> The subject should move and change pose; it should not turn into something
-      else or gain objects that are not in the image. In each row, from left to right, the three videos should move step by step
-      from motion A towards motion B: the left one closer to A, the middle one an even mix, the right one closer to B. Click a row to choose the
-      method after a careful examination.</p>
+      applying the interpolated motions to the target subject?</b> In each row the left video should be closer to motion A, performed by the target
+      subject, the right video closer to motion B, and the middle video in between, moving step by step from one to the other. The subject may
+      change its pose as it moves. Click a row to choose the method after a careful examination.</p>
   </header>
   <div class="stage" id="stage">
     <div class="srcs">
@@ -172,13 +171,12 @@ const mode = 'resampled', V = t => t.resampled;   // which copies to play: the 2
 $('steps').innerHTML = [
   `In each of the 10 questions, you will see, in the top row, two videos named “<b class="ka">motion A</b>” and “<b class="kb">motion B</b>”, and an image
    containing the “<b>target subject</b>.” The goal is to interpolate motions from A to B and apply those motions to the target subject.`,
-  `In the second and third rows, results produced by two methods are shown in rows of three videos reflecting the motion transition from A to B,
-   performed by the target subject. From left to right, the three videos should move step by step from motion A towards motion B: the left one
-   closer to A, the middle one an even mix of the two, and the right one closer to B.`,
+  `In the second and third rows, results produced by two methods are shown in rows of three videos reflecting the motion transition from A to B.
+   The left video should be closer to motion A, performed by the target subject, and the right video closer to motion B, while the middle video
+   should lie in between, so that the row moves step by step from one motion to the next.`,
   `For each question, please choose the method that <b>interpolates better between the two motions A and B</b> while properly applying the
-   interpolated motions to the target subject. Properly applying the motion means the target subject performs it while staying the same
-   subject: its pose is expected to change, but it should not turn into something else (e.g., a person should not become an animal or an
-   object), and objects that are not in the image should not appear. Note that the order of the methods is shuffled for each question.`,
+   interpolated motions to the target subject. The target subject is expected to change its pose as it moves, but it should remain the same
+   subject. Note that the order of the methods is shuffled for each question.`,
 ].map(s => `<li>${s}</li>`).join('');
 if (store.get(DONE_KEY)) { $('again').hidden = false; $('start').hidden = true; }
 if (!endpoint) $('preview').hidden = false;
