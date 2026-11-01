@@ -90,10 +90,10 @@ pre.dump { max-height: 260px; overflow: auto; background: var(--bg); border: 1px
 
 <main id="intro" class="screen">
   <div class="card">
-    <h1>Motion interpolation study</h1>
-    <p>Thank you for taking part. It takes about 5 minutes and is anonymous.</p>
+    <h1>User study on motion interpolation</h1>
+    <p>Thank you for taking part. The study is anonymous and it contains 10 questions, which should take about 5-10 minutes to complete.</p>
     <ol class="steps" id="steps"></ol>
-    <p class="muted">All videos loop and play together. There are no right answers; go with your impression. A laptop or desktop screen works best.</p>
+    <p class="muted">All videos loop and play together. Please take your time and watch the results carefully before marking your choices. A laptop or desktop screen works best.</p>
     <p class="notice" id="again" hidden>You have already completed this study on this device. Thank you! <button type="button" class="linkish" id="again-go">Take it again anyway</button></p>
     <p class="notice" id="preview" hidden>Preview mode: no answer endpoint is set in config.js, so nothing will be sent.</p>
     <div class="row"><button type="button" class="btn primary" id="start">Start</button></div>
@@ -104,9 +104,10 @@ pre.dump { max-height: 260px; overflow: auto; background: var(--bg); border: 1px
   <header class="thead">
     <div class="count" id="count"></div>
     <div class="progress" aria-hidden="true"><i id="prog"></i></div>
-    <p class="ask"><b>Which method interpolates better between <span class="ka">motion A</span> and <span class="kb">motion B</span>?</b>
-      In each row the left video should follow motion A, the right video motion B, and the videos in between should move step by step from
-      one to the other. Click a row to choose it.</p>
+    <p class="ask"><b>Which method, 1 or 2, interpolates better between <span class="ka">motion A</span> and <span class="kb">motion B</span> while properly
+      applying the interpolated motions to the target subject?</b> In each row the left video should follow motion A, performed by the target
+      subject, the right video motion B, and the videos in between should move step by step from one to the other. Click a row to choose the
+      method after a careful examination.</p>
   </header>
   <div class="stage" id="stage">
     <div class="srcs">
@@ -156,10 +157,13 @@ let cur = -1, t0 = 0, started = null, payload = null, warm = [];
 const mode = 'resampled', V = t => t.resampled;   // which copies to play: the 25 frames at 9 fps
 
 $('steps').innerHTML = [
-  `Each of the <b>${plan.length}</b> examples shows two videos, <b class="ka">motion A</b> and <b class="kb">motion B</b>, and a <b>target image</b>.`,
-  `Below them, two methods each animate the target image as a row of five videos. The left video should follow motion A and the right
-   video motion B; the videos in between should move step by step from one motion to the other.`,
-  `Choose the method that <b>interpolates better between the two motions</b>. Which method is which is shuffled every time.`,
+  `In each of the 10 questions, you will see, in the top row, two videos named “<b class="ka">motion A</b>” and “<b class="kb">motion B</b>”, and an image
+   containing the “<b>target subject</b>.” The goal is to interpolate motions from A to B and apply those motions to the target subject.`,
+  `In the second and third rows, results produced by two methods are shown in rows of five videos reflecting the motion transition from A to B.
+   The left video should follow motion A, performed by the target subject, and the right video motion B, while the videos in between should move
+   step by step from one motion to the next.`,
+  `For each question, please choose the method that <b>interpolates better between the two motions A and B</b> while properly applying the
+   interpolated motions to the target subject. Note that the order of the methods is shuffled for each question.`,
 ].map(s => `<li>${s}</li>`).join('');
 if (store.get(DONE_KEY)) { $('again').hidden = false; $('start').hidden = true; }
 if (!endpoint) $('preview').hidden = false;
