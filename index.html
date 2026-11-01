@@ -7,8 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap">
 <style>
-/* Interpolation study: intro -> the examples (motion A, motion B and the target image on top; two methods below, each one row of five videos going from
-   A to B, shown in shuffled order as Method 1 / Method 2; pick the better one) -> answers posted to the sheet (config.js ENDPOINT).
+/* Interpolation study: intro -> the examples (motion A, motion B and the target image on top; two methods below, each one row of three in-between videos
+   (w = .25 / .5 / .75) going from A to B, shown in shuffled order as Method 1 / Method 2; pick the better one) -> answers posted to the sheet (config.js ENDPOINT).
    Nothing on screen says which method made which row. Videos are the resampled copies (media_r/: 25 frames at 9 fps, like the ranking
    study; media/ keeps the 24 fps originals); sent as `videos`. Tokens match the ranking study. */
 :root {
@@ -105,8 +105,8 @@ pre.dump { max-height: 260px; overflow: auto; background: var(--bg); border: 1px
     <div class="count" id="count"></div>
     <div class="progress" aria-hidden="true"><i id="prog"></i></div>
     <p class="ask"><b>Which method, 1 or 2, interpolates better between <span class="ka">motion A</span> and <span class="kb">motion B</span> while properly
-      applying the interpolated motions to the target subject?</b> In each row the left video should follow motion A, performed by the target
-      subject, the right video motion B, and the videos in between should move step by step from one to the other. Click a row to choose the
+      applying the interpolated motions to the target subject?</b> In each row, from left to right, the three videos should move step by step
+      from motion A towards motion B: the left one closer to A, the middle one an even mix, the right one closer to B. Click a row to choose the
       method after a careful examination.</p>
   </header>
   <div class="stage" id="stage">
@@ -159,9 +159,9 @@ const mode = 'resampled', V = t => t.resampled;   // which copies to play: the 2
 $('steps').innerHTML = [
   `In each of the 10 questions, you will see, in the top row, two videos named “<b class="ka">motion A</b>” and “<b class="kb">motion B</b>”, and an image
    containing the “<b>target subject</b>.” The goal is to interpolate motions from A to B and apply those motions to the target subject.`,
-  `In the second and third rows, results produced by two methods are shown in rows of five videos reflecting the motion transition from A to B.
-   The left video should follow motion A, performed by the target subject, and the right video motion B, while the videos in between should move
-   step by step from one motion to the next.`,
+  `In the second and third rows, results produced by two methods are shown in rows of three videos reflecting the motion transition from A to B,
+   performed by the target subject. From left to right, the three videos should move step by step from motion A towards motion B: the left one
+   closer to A, the middle one an even mix of the two, and the right one closer to B.`,
   `For each question, please choose the method that <b>interpolates better between the two motions A and B</b> while properly applying the
    interpolated motions to the target subject. Note that the order of the methods is shuffled for each question.`,
 ].map(s => `<li>${s}</li>`).join('');
@@ -221,11 +221,11 @@ function finish() {
   plan[cur].ms += performance.now() - t0;
   const fin = new Date().toISOString(), scr = `${screen.width}x${screen.height}`;
   const columns = ['submission', 'participant', 'videos', 'position', 'trial', 'kind', 'motion_a', 'motion_b', 'target', 'choice', 'ours_chosen',
-    'shown', 'seconds', 'started', 'finished', 'screen', 'user_agent'];
+    'shown', 'seconds', 'started', 'finished', 'screen', 'user_agent', 'version'];   // version last: the sheet's existing header stays aligned
   const rows = plan.map((p, n) => {
     const choice = p.shown[p.pick];
     return [sub, pid, mode, n + 1, p.t.id, p.t.kind, p.t.motion_a, p.t.motion_b, p.t.target, choice, choice === 'ours' ? 1 : 0,
-      p.shown.map((k, j) => `${j + 1}=${k}`).join(' '), Math.round(p.ms / 100) / 10, started, fin, scr, navigator.userAgent];
+      p.shown.map((k, j) => `${j + 1}=${k}`).join(' '), Math.round(p.ms / 100) / 10, started, fin, scr, navigator.userAgent, STUDY.version];
   });
   payload = {study: STUDY.study, videos: mode, version: STUDY.version, seed: STUDY.seed, submission: sub, participant: pid, started, finished: fin, columns, rows};
   $('trial').hidden = true; $('done').hidden = false; send();
