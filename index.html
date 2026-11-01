@@ -35,6 +35,7 @@ h2 { font: 650 1.3rem/1.2 var(--body); margin: 0 }
 .card p { margin: 0 } .muted { color: var(--muted) }
 ol.steps { margin: 0; padding-left: 1.3em; display: grid; gap: 8px }
 .notice { background: var(--warn-soft); color: var(--warn); border-radius: 8px; padding: 10px 14px; font-size: .92rem }
+textarea#comment-t { width: 100%; font: inherit; color: inherit; background: var(--bg); border: 1px solid var(--line); border-radius: 9px; padding: 10px 12px; resize: vertical }
 .btn { cursor: pointer; border: 1px solid var(--line); background: var(--panel); padding: 9px 18px; border-radius: 9px; font-weight: 600 }
 .btn:hover:not(:disabled) { border-color: var(--muted) }
 .btn:disabled { opacity: .4; cursor: default }
@@ -69,9 +70,10 @@ ol.steps { margin: 0; padding-left: 1.3em; display: grid; gap: 8px }
 .scale { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; font-size: .78rem; font-weight: 650;
   width: min(100%, calc(var(--rowh) * var(--rar))); margin-inline: auto }
 .scale i { height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--a), var(--b)) }
-/* row height that keeps header, sources, both rows and the bottom bar on one screen (measured overhead ~420 px) */
-#stage { --rowh: calc((100vh - 420px - var(--srch)) / 2) }
-@supports (height: 100dvh) { #stage { --rowh: calc((100dvh - 420px - var(--srch)) / 2) } }
+/* row height that keeps header, sources, both rows and the bottom bar on one screen (measured overhead ~420 px); with three videos per
+   row (v13, user 2026-11-01 "the video sizes for options can be larger now") at least 230 px, so the rows fill the width (the page may scroll) */
+#stage { --rowh: max(230px, calc((100vh - 420px - var(--srch)) / 2)) }
+@supports (height: 100dvh) { #stage { --rowh: max(230px, calc((100dvh - 420px - var(--srch)) / 2)) } }
 .bar { position: sticky; bottom: 0; margin: 16px -16px 0; padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px)); background: var(--bg);
   border-top: 1px solid var(--line); display: flex; gap: 12px 20px; align-items: center; justify-content: space-between; flex-wrap: wrap }
 .choice { color: var(--muted); font-size: .92rem } .choice b { color: var(--ink) }
@@ -105,7 +107,8 @@ pre.dump { max-height: 260px; overflow: auto; background: var(--bg); border: 1px
     <div class="count" id="count"></div>
     <div class="progress" aria-hidden="true"><i id="prog"></i></div>
     <p class="ask"><b>Which method, 1 or 2, interpolates better between <span class="ka">motion A</span> and <span class="kb">motion B</span> while properly
-      applying the interpolated motions to the target subject?</b> In each row, from left to right, the three videos should move step by step
+      applying the interpolated motions to the target subject?</b> The subject should move and change pose; it should not turn into something
+      else or gain objects that are not in the image. In each row, from left to right, the three videos should move step by step
       from motion A towards motion B: the left one closer to A, the middle one an even mix, the right one closer to B. Click a row to choose the
       method after a careful examination.</p>
   </header>
@@ -124,6 +127,16 @@ pre.dump { max-height: 260px; overflow: auto; background: var(--bg); border: 1px
       <button type="button" class="btn primary" id="next" disabled>Next</button>
     </div>
   </footer>
+</main>
+
+<main id="comment" class="screen" hidden>
+  <div class="card">
+    <h2>One last question (optional)</h2>
+    <p>What did you mainly base your choices on?</p>
+    <textarea id="comment-t" rows="4" maxlength="1500" placeholder="Optional"></textarea>
+    <div class="row"><button type="button" class="btn" id="comment-back">Back</button>
+      <button type="button" class="btn primary" id="comment-send">Submit answers</button></div>
+  </div>
 </main>
 
 <main id="done" class="screen" hidden>
@@ -163,7 +176,9 @@ $('steps').innerHTML = [
    performed by the target subject. From left to right, the three videos should move step by step from motion A towards motion B: the left one
    closer to A, the middle one an even mix of the two, and the right one closer to B.`,
   `For each question, please choose the method that <b>interpolates better between the two motions A and B</b> while properly applying the
-   interpolated motions to the target subject. Note that the order of the methods is shuffled for each question.`,
+   interpolated motions to the target subject. Properly applying the motion means the target subject performs it while staying the same
+   subject: its pose is expected to change, but it should not turn into something else (e.g., a person should not become an animal or an
+   object), and objects that are not in the image should not appear. Note that the order of the methods is shuffled for each question.`,
 ].map(s => `<li>${s}</li>`).join('');
 if (store.get(DONE_KEY)) { $('again').hidden = false; $('start').hidden = true; }
 if (!endpoint) $('preview').hidden = false;
@@ -209,7 +224,11 @@ function paint() {
 
 $('rows').addEventListener('click', e => { const b = e.target.closest('.mrow'); if (b) { plan[cur].pick = +b.dataset.j; paint(); } });
 $('back').onclick = () => cur > 0 && show(cur - 1);
-$('next').onclick = () => { if ($('next').disabled) return; cur < plan.length - 1 ? show(cur + 1) : finish(); };
+$('next').onclick = () => { if ($('next').disabled) return; cur < plan.length - 1 ? show(cur + 1) : toComment(); };
+// after the last question: an optional free-text "what did you base your choices on?" (user 2026-11-01), then the answers are sent
+function toComment() { plan[cur].ms += performance.now() - t0; $('trial').hidden = true; $('comment').hidden = false; $('comment-t').focus(); }
+$('comment-back').onclick = () => { $('comment').hidden = true; $('trial').hidden = false; t0 = performance.now(); };
+$('comment-send').onclick = () => finish();
 document.addEventListener('keydown', e => {
   if ($('trial').hidden || e.metaKey || e.ctrlKey || e.altKey) return;
   if (e.key === '1' || e.key === '2') { e.preventDefault(); plan[cur].pick = +e.key - 1; paint(); }
@@ -218,17 +237,17 @@ document.addEventListener('keydown', e => {
 window.addEventListener('beforeunload', e => { if (started && !payload) { e.preventDefault(); e.returnValue = ''; } });
 
 function finish() {
-  plan[cur].ms += performance.now() - t0;
+  const comment = $('comment-t').value.trim();
   const fin = new Date().toISOString(), scr = `${screen.width}x${screen.height}`;
   const columns = ['submission', 'participant', 'videos', 'position', 'trial', 'kind', 'motion_a', 'motion_b', 'target', 'choice', 'ours_chosen',
-    'shown', 'seconds', 'started', 'finished', 'screen', 'user_agent', 'version'];   // version last: the sheet's existing header stays aligned
+    'shown', 'seconds', 'started', 'finished', 'screen', 'user_agent', 'version', 'comment'];   // comment: first row only   // version last: the sheet's existing header stays aligned
   const rows = plan.map((p, n) => {
     const choice = p.shown[p.pick];
     return [sub, pid, mode, n + 1, p.t.id, p.t.kind, p.t.motion_a, p.t.motion_b, p.t.target, choice, choice === 'ours' ? 1 : 0,
-      p.shown.map((k, j) => `${j + 1}=${k}`).join(' '), Math.round(p.ms / 100) / 10, started, fin, scr, navigator.userAgent, STUDY.version];
+      p.shown.map((k, j) => `${j + 1}=${k}`).join(' '), Math.round(p.ms / 100) / 10, started, fin, scr, navigator.userAgent, STUDY.version, n ? '' : comment];
   });
-  payload = {study: STUDY.study, videos: mode, version: STUDY.version, seed: STUDY.seed, submission: sub, participant: pid, started, finished: fin, columns, rows};
-  $('trial').hidden = true; $('done').hidden = false; send();
+  payload = {study: STUDY.study, videos: mode, version: STUDY.version, seed: STUDY.seed, submission: sub, participant: pid, started, finished: fin, comment, columns, rows};
+  $('comment').hidden = true; $('done').hidden = false; send();
 }
 
 async function send() {
