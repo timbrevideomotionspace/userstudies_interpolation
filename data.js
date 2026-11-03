@@ -1,7 +1,7 @@
 // generated -- do not edit by hand
 const STUDY = {
  "study": "interpolation",
- "version": 13,
+ "version": 16,
  "seed": 20261026,
  "methods": [
   "ours",
@@ -18,23 +18,23 @@ const STUDY = {
    "kind": "composition",
    "motion_a": "walk_fwd",
    "motion_b": "arms_up",
-   "target": "kitchen_chef",
+   "target": "08_wooden_mannequin_wide",
    "image": "media/p01_target.jpg",
-   "aspect": 1.8,
-   "row_aspect": 5.4593,
+   "aspect": 1.7333,
+   "row_aspect": 5.2593,
    "source_aspect": 1.7333,
    "a": "media/p01_a.mp4",
    "b": "media/p01_b.mp4",
    "rows": {
-    "ours": "media/p01_d76e7eda.mp4",
-    "dismo": "media/p01_663157fd.mp4"
+    "ours": "media/p01_a57700d6.mp4",
+    "dismo": "media/p01_febf2bd7.mp4"
    },
    "resampled": {
     "a": "media_r/p01_a.mp4",
     "b": "media_r/p01_b.mp4",
     "rows": {
-     "ours": "media_r/p01_d76e7eda.mp4",
-     "dismo": "media_r/p01_663157fd.mp4"
+     "ours": "media_r/p01_a57700d6.mp4",
+     "dismo": "media_r/p01_febf2bd7.mp4"
     }
    }
   },
@@ -43,7 +43,7 @@ const STUDY = {
    "kind": "composition",
    "motion_a": "spin",
    "motion_b": "arms_out",
-   "target": "chrome_robot",
+   "target": "cartoon_girl",
    "image": "media/p02_target.jpg",
    "aspect": 1.8,
    "row_aspect": 5.4593,
@@ -51,15 +51,15 @@ const STUDY = {
    "a": "media/p02_a.mp4",
    "b": "media/p02_b.mp4",
    "rows": {
-    "ours": "media/p02_28dcced9.mp4",
-    "dismo": "media/p02_75683bcc.mp4"
+    "ours": "media/p02_6162b294.mp4",
+    "dismo": "media/p02_8d81d4c7.mp4"
    },
    "resampled": {
     "a": "media_r/p02_a.mp4",
     "b": "media_r/p02_b.mp4",
     "rows": {
-     "ours": "media_r/p02_28dcced9.mp4",
-     "dismo": "media_r/p02_75683bcc.mp4"
+     "ours": "media_r/p02_6162b294.mp4",
+     "dismo": "media_r/p02_8d81d4c7.mp4"
     }
    }
   },
@@ -68,23 +68,23 @@ const STUDY = {
    "kind": "composition",
    "motion_a": "side_steps",
    "motion_b": "punches",
-   "target": "construction_worker",
+   "target": "12_gingerbread_man",
    "image": "media/p03_target.jpg",
-   "aspect": 1.8,
-   "row_aspect": 5.4593,
+   "aspect": 1.0,
+   "row_aspect": 3.0593,
    "source_aspect": 1.7333,
    "a": "media/p03_a.mp4",
    "b": "media/p03_b.mp4",
    "rows": {
-    "ours": "media/p03_dda48439.mp4",
-    "dismo": "media/p03_f78f1bbe.mp4"
+    "ours": "media/p03_13832a3b.mp4",
+    "dismo": "media/p03_11fe2652.mp4"
    },
    "resampled": {
     "a": "media_r/p03_a.mp4",
     "b": "media_r/p03_b.mp4",
     "rows": {
-     "ours": "media_r/p03_dda48439.mp4",
-     "dismo": "media_r/p03_f78f1bbe.mp4"
+     "ours": "media_r/p03_13832a3b.mp4",
+     "dismo": "media_r/p03_11fe2652.mp4"
     }
    }
   },
@@ -143,23 +143,23 @@ const STUDY = {
    "kind": "transition",
    "motion_a": "walk_fwd",
    "motion_b": "jump",
-   "target": "wooden_mannequin",
+   "target": "01_casual_man_wide",
    "image": "media/p07_target.jpg",
-   "aspect": 1.8,
-   "row_aspect": 5.4593,
+   "aspect": 1.7333,
+   "row_aspect": 5.2593,
    "source_aspect": 1.7333,
    "a": "media/p07_a.mp4",
    "b": "media/p07_b.mp4",
    "rows": {
-    "ours": "media/p07_b5f3c17a.mp4",
-    "dismo": "media/p07_e4448bbe.mp4"
+    "ours": "media/p07_3f6af48f.mp4",
+    "dismo": "media/p07_ab1d0917.mp4"
    },
    "resampled": {
     "a": "media_r/p07_a.mp4",
     "b": "media_r/p07_b.mp4",
     "rows": {
-     "ours": "media_r/p07_b5f3c17a.mp4",
-     "dismo": "media_r/p07_e4448bbe.mp4"
+     "ours": "media_r/p07_3f6af48f.mp4",
+     "dismo": "media_r/p07_ab1d0917.mp4"
     }
    }
   },
@@ -168,23 +168,23 @@ const STUDY = {
    "kind": "transition",
    "motion_a": "walk_fwd",
    "motion_b": "spin",
-   "target": "paper_boy",
+   "target": "02_elegant_woman_wide",
    "image": "media/p08_target.jpg",
-   "aspect": 1.8,
-   "row_aspect": 5.4593,
+   "aspect": 1.7333,
+   "row_aspect": 5.2593,
    "source_aspect": 1.7333,
    "a": "media/p08_a.mp4",
    "b": "media/p08_b.mp4",
    "rows": {
-    "ours": "media/p08_2885c217.mp4",
-    "dismo": "media/p08_70b4070d.mp4"
+    "ours": "media/p08_d3a620c3.mp4",
+    "dismo": "media/p08_e48c81d8.mp4"
    },
    "resampled": {
     "a": "media_r/p08_a.mp4",
     "b": "media_r/p08_b.mp4",
     "rows": {
-     "ours": "media_r/p08_2885c217.mp4",
-     "dismo": "media_r/p08_70b4070d.mp4"
+     "ours": "media_r/p08_d3a620c3.mp4",
+     "dismo": "media_r/p08_e48c81d8.mp4"
     }
    }
   },
@@ -193,23 +193,23 @@ const STUDY = {
    "kind": "transition",
    "motion_a": "sneak",
    "motion_b": "stomp",
-   "target": "elderly_man",
+   "target": "11_chrome_robot",
    "image": "media/p11_target.jpg",
-   "aspect": 1.8,
-   "row_aspect": 5.4593,
+   "aspect": 0.6667,
+   "row_aspect": 2.0593,
    "source_aspect": 1.7333,
    "a": "media/p11_a.mp4",
    "b": "media/p11_b.mp4",
    "rows": {
-    "ours": "media/p11_b72d22df.mp4",
-    "dismo": "media/p11_9e5f2d43.mp4"
+    "ours": "media/p11_50a02c06.mp4",
+    "dismo": "media/p11_ed311ac6.mp4"
    },
    "resampled": {
     "a": "media_r/p11_a.mp4",
     "b": "media_r/p11_b.mp4",
     "rows": {
-     "ours": "media_r/p11_b72d22df.mp4",
-     "dismo": "media_r/p11_9e5f2d43.mp4"
+     "ours": "media_r/p11_50a02c06.mp4",
+     "dismo": "media_r/p11_ed311ac6.mp4"
     }
    }
   },
@@ -218,23 +218,23 @@ const STUDY = {
    "kind": "transition",
    "motion_a": "sway",
    "motion_b": "jump_dance",
-   "target": "ballet_dancer",
+   "target": "09_knitted_doll_wide",
    "image": "media/p12_target.jpg",
-   "aspect": 1.8,
-   "row_aspect": 5.4593,
+   "aspect": 1.7333,
+   "row_aspect": 5.2593,
    "source_aspect": 1.7333,
    "a": "media/p12_a.mp4",
    "b": "media/p12_b.mp4",
    "rows": {
-    "ours": "media/p12_d0be2d5d.mp4",
-    "dismo": "media/p12_52ec7caf.mp4"
+    "ours": "media/p12_cd9c84a3.mp4",
+    "dismo": "media/p12_12ae4351.mp4"
    },
    "resampled": {
     "a": "media_r/p12_a.mp4",
     "b": "media_r/p12_b.mp4",
     "rows": {
-     "ours": "media_r/p12_d0be2d5d.mp4",
-     "dismo": "media_r/p12_52ec7caf.mp4"
+     "ours": "media_r/p12_cd9c84a3.mp4",
+     "dismo": "media_r/p12_12ae4351.mp4"
     }
    }
   },
