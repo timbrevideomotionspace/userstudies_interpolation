@@ -1,7 +1,7 @@
 // generated -- do not edit by hand
 const STUDY = {
  "study": "interpolation",
- "version": 16,
+ "version": 18,
  "seed": 20261026,
  "methods": [
   "ours",
@@ -64,31 +64,6 @@ const STUDY = {
    }
   },
   {
-   "id": "p03",
-   "kind": "composition",
-   "motion_a": "side_steps",
-   "motion_b": "punches",
-   "target": "12_gingerbread_man",
-   "image": "media/p03_target.jpg",
-   "aspect": 1.0,
-   "row_aspect": 3.0593,
-   "source_aspect": 1.7333,
-   "a": "media/p03_a.mp4",
-   "b": "media/p03_b.mp4",
-   "rows": {
-    "ours": "media/p03_13832a3b.mp4",
-    "dismo": "media/p03_11fe2652.mp4"
-   },
-   "resampled": {
-    "a": "media_r/p03_a.mp4",
-    "b": "media_r/p03_b.mp4",
-    "rows": {
-     "ours": "media_r/p03_13832a3b.mp4",
-     "dismo": "media_r/p03_11fe2652.mp4"
-    }
-   }
-  },
-  {
    "id": "p04",
    "kind": "composition",
    "motion_a": "squats",
@@ -139,6 +114,31 @@ const STUDY = {
    }
   },
   {
+   "id": "p06",
+   "kind": "composition",
+   "motion_a": "march",
+   "motion_b": "clap_overhead",
+   "target": "03_raincoat_girl_wide",
+   "image": "media/p06_target.jpg",
+   "aspect": 1.7333,
+   "row_aspect": 5.2593,
+   "source_aspect": 1.7333,
+   "a": "media/p06_a.mp4",
+   "b": "media/p06_b.mp4",
+   "rows": {
+    "ours": "media/p06_452c351f.mp4",
+    "dismo": "media/p06_fde87c88.mp4"
+   },
+   "resampled": {
+    "a": "media_r/p06_a.mp4",
+    "b": "media_r/p06_b.mp4",
+    "rows": {
+     "ours": "media_r/p06_452c351f.mp4",
+     "dismo": "media_r/p06_fde87c88.mp4"
+    }
+   }
+  },
+  {
    "id": "p07",
    "kind": "transition",
    "motion_a": "walk_fwd",
@@ -164,27 +164,27 @@ const STUDY = {
    }
   },
   {
-   "id": "p08",
+   "id": "p10",
    "kind": "transition",
-   "motion_a": "walk_fwd",
-   "motion_b": "spin",
-   "target": "02_elegant_woman_wide",
-   "image": "media/p08_target.jpg",
-   "aspect": 1.7333,
-   "row_aspect": 5.2593,
+   "motion_a": "run_across",
+   "motion_b": "walk_across",
+   "target": "25_white_horse",
+   "image": "media/p10_target.jpg",
+   "aspect": 1.2222,
+   "row_aspect": 3.7259,
    "source_aspect": 1.7333,
-   "a": "media/p08_a.mp4",
-   "b": "media/p08_b.mp4",
+   "a": "media/p10_a.mp4",
+   "b": "media/p10_b.mp4",
    "rows": {
-    "ours": "media/p08_d3a620c3.mp4",
-    "dismo": "media/p08_e48c81d8.mp4"
+    "ours": "media/p10_1bbc30d1.mp4",
+    "dismo": "media/p10_8bb04d3b.mp4"
    },
    "resampled": {
-    "a": "media_r/p08_a.mp4",
-    "b": "media_r/p08_b.mp4",
+    "a": "media_r/p10_a.mp4",
+    "b": "media_r/p10_b.mp4",
     "rows": {
-     "ours": "media_r/p08_d3a620c3.mp4",
-     "dismo": "media_r/p08_e48c81d8.mp4"
+     "ours": "media_r/p10_1bbc30d1.mp4",
+     "dismo": "media_r/p10_8bb04d3b.mp4"
     }
    }
   },
