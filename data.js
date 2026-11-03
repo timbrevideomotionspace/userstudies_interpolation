@@ -1,7 +1,7 @@
 // generated -- do not edit by hand
 const STUDY = {
  "study": "interpolation",
- "version": 18,
+ "version": 19,
  "seed": 20261026,
  "methods": [
   "ours",
@@ -193,23 +193,23 @@ const STUDY = {
    "kind": "transition",
    "motion_a": "sneak",
    "motion_b": "stomp",
-   "target": "11_chrome_robot",
+   "target": "elderly_man",
    "image": "media/p11_target.jpg",
-   "aspect": 0.6667,
-   "row_aspect": 2.0593,
+   "aspect": 1.8,
+   "row_aspect": 5.4593,
    "source_aspect": 1.7333,
    "a": "media/p11_a.mp4",
    "b": "media/p11_b.mp4",
    "rows": {
-    "ours": "media/p11_50a02c06.mp4",
-    "dismo": "media/p11_ed311ac6.mp4"
+    "ours": "media/p11_b72d22df.mp4",
+    "dismo": "media/p11_9e5f2d43.mp4"
    },
    "resampled": {
     "a": "media_r/p11_a.mp4",
     "b": "media_r/p11_b.mp4",
     "rows": {
-     "ours": "media_r/p11_50a02c06.mp4",
-     "dismo": "media_r/p11_ed311ac6.mp4"
+     "ours": "media_r/p11_b72d22df.mp4",
+     "dismo": "media_r/p11_9e5f2d43.mp4"
     }
    }
   },
