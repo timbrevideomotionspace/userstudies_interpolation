@@ -1,7 +1,7 @@
 // generated -- do not edit by hand
 const STUDY = {
  "study": "interpolation",
- "version": 19,
+ "version": 20,
  "seed": 20261026,
  "methods": [
   "ours",
@@ -26,15 +26,15 @@ const STUDY = {
    "a": "media/p01_a.mp4",
    "b": "media/p01_b.mp4",
    "rows": {
-    "ours": "media/p01_a57700d6.mp4",
-    "dismo": "media/p01_febf2bd7.mp4"
+    "ours": "media/p01_5d36ae83.mp4",
+    "dismo": "media/p01_f8f3c91f.mp4"
    },
    "resampled": {
     "a": "media_r/p01_a.mp4",
     "b": "media_r/p01_b.mp4",
     "rows": {
-     "ours": "media_r/p01_a57700d6.mp4",
-     "dismo": "media_r/p01_febf2bd7.mp4"
+     "ours": "media_r/p01_5d36ae83.mp4",
+     "dismo": "media_r/p01_f8f3c91f.mp4"
     }
    }
   },
@@ -51,15 +51,15 @@ const STUDY = {
    "a": "media/p02_a.mp4",
    "b": "media/p02_b.mp4",
    "rows": {
-    "ours": "media/p02_6162b294.mp4",
-    "dismo": "media/p02_8d81d4c7.mp4"
+    "ours": "media/p02_e21118a4.mp4",
+    "dismo": "media/p02_e8a6e2c3.mp4"
    },
    "resampled": {
     "a": "media_r/p02_a.mp4",
     "b": "media_r/p02_b.mp4",
     "rows": {
-     "ours": "media_r/p02_6162b294.mp4",
-     "dismo": "media_r/p02_8d81d4c7.mp4"
+     "ours": "media_r/p02_e21118a4.mp4",
+     "dismo": "media_r/p02_e8a6e2c3.mp4"
     }
    }
   },
@@ -76,15 +76,15 @@ const STUDY = {
    "a": "media/p04_a.mp4",
    "b": "media/p04_b.mp4",
    "rows": {
-    "ours": "media/p04_dbcf06fa.mp4",
-    "dismo": "media/p04_96e154d1.mp4"
+    "ours": "media/p04_5e9ff170.mp4",
+    "dismo": "media/p04_035d32ed.mp4"
    },
    "resampled": {
     "a": "media_r/p04_a.mp4",
     "b": "media_r/p04_b.mp4",
     "rows": {
-     "ours": "media_r/p04_dbcf06fa.mp4",
-     "dismo": "media_r/p04_96e154d1.mp4"
+     "ours": "media_r/p04_5e9ff170.mp4",
+     "dismo": "media_r/p04_035d32ed.mp4"
     }
    }
   },
@@ -93,23 +93,23 @@ const STUDY = {
    "kind": "composition",
    "motion_a": "hop",
    "motion_b": "flap",
-   "target": "mountain_hiker",
+   "target": "10_paper_boy_wide",
    "image": "media/p05_target.jpg",
-   "aspect": 1.8,
-   "row_aspect": 5.4593,
+   "aspect": 1.7333,
+   "row_aspect": 5.2593,
    "source_aspect": 1.7333,
    "a": "media/p05_a.mp4",
    "b": "media/p05_b.mp4",
    "rows": {
-    "ours": "media/p05_03142bf8.mp4",
-    "dismo": "media/p05_0804d625.mp4"
+    "ours": "media/p05_dc08f0df.mp4",
+    "dismo": "media/p05_5bd7e8d0.mp4"
    },
    "resampled": {
     "a": "media_r/p05_a.mp4",
     "b": "media_r/p05_b.mp4",
     "rows": {
-     "ours": "media_r/p05_03142bf8.mp4",
-     "dismo": "media_r/p05_0804d625.mp4"
+     "ours": "media_r/p05_dc08f0df.mp4",
+     "dismo": "media_r/p05_5bd7e8d0.mp4"
     }
    }
   },
@@ -126,15 +126,15 @@ const STUDY = {
    "a": "media/p06_a.mp4",
    "b": "media/p06_b.mp4",
    "rows": {
-    "ours": "media/p06_452c351f.mp4",
-    "dismo": "media/p06_fde87c88.mp4"
+    "ours": "media/p06_60491e51.mp4",
+    "dismo": "media/p06_75ce4d91.mp4"
    },
    "resampled": {
     "a": "media_r/p06_a.mp4",
     "b": "media_r/p06_b.mp4",
     "rows": {
-     "ours": "media_r/p06_452c351f.mp4",
-     "dismo": "media_r/p06_fde87c88.mp4"
+     "ours": "media_r/p06_60491e51.mp4",
+     "dismo": "media_r/p06_75ce4d91.mp4"
     }
    }
   },
@@ -143,23 +143,23 @@ const STUDY = {
    "kind": "transition",
    "motion_a": "walk_fwd",
    "motion_b": "jump",
-   "target": "01_casual_man_wide",
+   "target": "clay_hiker",
    "image": "media/p07_target.jpg",
-   "aspect": 1.7333,
-   "row_aspect": 5.2593,
+   "aspect": 1.8,
+   "row_aspect": 5.4593,
    "source_aspect": 1.7333,
    "a": "media/p07_a.mp4",
    "b": "media/p07_b.mp4",
    "rows": {
-    "ours": "media/p07_3f6af48f.mp4",
-    "dismo": "media/p07_ab1d0917.mp4"
+    "ours": "media/p07_c6638c19.mp4",
+    "dismo": "media/p07_44380d43.mp4"
    },
    "resampled": {
     "a": "media_r/p07_a.mp4",
     "b": "media_r/p07_b.mp4",
     "rows": {
-     "ours": "media_r/p07_3f6af48f.mp4",
-     "dismo": "media_r/p07_ab1d0917.mp4"
+     "ours": "media_r/p07_c6638c19.mp4",
+     "dismo": "media_r/p07_44380d43.mp4"
     }
    }
   },
@@ -168,23 +168,23 @@ const STUDY = {
    "kind": "transition",
    "motion_a": "run_across",
    "motion_b": "walk_across",
-   "target": "25_white_horse",
+   "target": "raincoat_girl",
    "image": "media/p10_target.jpg",
-   "aspect": 1.2222,
-   "row_aspect": 3.7259,
+   "aspect": 1.8,
+   "row_aspect": 5.4593,
    "source_aspect": 1.7333,
    "a": "media/p10_a.mp4",
    "b": "media/p10_b.mp4",
    "rows": {
-    "ours": "media/p10_1bbc30d1.mp4",
-    "dismo": "media/p10_8bb04d3b.mp4"
+    "ours": "media/p10_6ec97b63.mp4",
+    "dismo": "media/p10_b0b78900.mp4"
    },
    "resampled": {
     "a": "media_r/p10_a.mp4",
     "b": "media_r/p10_b.mp4",
     "rows": {
-     "ours": "media_r/p10_1bbc30d1.mp4",
-     "dismo": "media_r/p10_8bb04d3b.mp4"
+     "ours": "media_r/p10_6ec97b63.mp4",
+     "dismo": "media_r/p10_b0b78900.mp4"
     }
    }
   },
@@ -201,15 +201,15 @@ const STUDY = {
    "a": "media/p11_a.mp4",
    "b": "media/p11_b.mp4",
    "rows": {
-    "ours": "media/p11_b72d22df.mp4",
-    "dismo": "media/p11_9e5f2d43.mp4"
+    "ours": "media/p11_2113245e.mp4",
+    "dismo": "media/p11_6d4ecec5.mp4"
    },
    "resampled": {
     "a": "media_r/p11_a.mp4",
     "b": "media_r/p11_b.mp4",
     "rows": {
-     "ours": "media_r/p11_b72d22df.mp4",
-     "dismo": "media_r/p11_9e5f2d43.mp4"
+     "ours": "media_r/p11_2113245e.mp4",
+     "dismo": "media_r/p11_6d4ecec5.mp4"
     }
    }
   },
@@ -226,15 +226,15 @@ const STUDY = {
    "a": "media/p12_a.mp4",
    "b": "media/p12_b.mp4",
    "rows": {
-    "ours": "media/p12_cd9c84a3.mp4",
-    "dismo": "media/p12_12ae4351.mp4"
+    "ours": "media/p12_a38f97b5.mp4",
+    "dismo": "media/p12_25eaa5ec.mp4"
    },
    "resampled": {
     "a": "media_r/p12_a.mp4",
     "b": "media_r/p12_b.mp4",
     "rows": {
-     "ours": "media_r/p12_cd9c84a3.mp4",
-     "dismo": "media_r/p12_12ae4351.mp4"
+     "ours": "media_r/p12_a38f97b5.mp4",
+     "dismo": "media_r/p12_25eaa5ec.mp4"
     }
    }
   },
@@ -251,15 +251,15 @@ const STUDY = {
    "a": "media/p13_a.mp4",
    "b": "media/p13_b.mp4",
    "rows": {
-    "ours": "media/p13_44b304b8.mp4",
-    "dismo": "media/p13_bee444b3.mp4"
+    "ours": "media/p13_95ecd76d.mp4",
+    "dismo": "media/p13_9affb7df.mp4"
    },
    "resampled": {
     "a": "media_r/p13_a.mp4",
     "b": "media_r/p13_b.mp4",
     "rows": {
-     "ours": "media_r/p13_44b304b8.mp4",
-     "dismo": "media_r/p13_bee444b3.mp4"
+     "ours": "media_r/p13_95ecd76d.mp4",
+     "dismo": "media_r/p13_9affb7df.mp4"
     }
    }
   }
