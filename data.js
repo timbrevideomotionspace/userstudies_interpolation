@@ -1,7 +1,7 @@
 // generated -- do not edit by hand
 const STUDY = {
  "study": "interpolation",
- "version": 20,
+ "version": 21,
  "seed": 20261026,
  "methods": [
   "ours",
@@ -20,6 +20,7 @@ const STUDY = {
    "motion_b": "arms_up",
    "target": "08_wooden_mannequin_wide",
    "image": "media/p01_target.jpg",
+   "ours_seed": 0,
    "aspect": 1.7333,
    "row_aspect": 5.2593,
    "source_aspect": 1.7333,
@@ -43,23 +44,24 @@ const STUDY = {
    "kind": "composition",
    "motion_a": "spin",
    "motion_b": "arms_out",
-   "target": "cartoon_girl",
+   "target": "chrome_robot",
    "image": "media/p02_target.jpg",
+   "ours_seed": 0,
    "aspect": 1.8,
    "row_aspect": 5.4593,
    "source_aspect": 1.7333,
    "a": "media/p02_a.mp4",
    "b": "media/p02_b.mp4",
    "rows": {
-    "ours": "media/p02_e21118a4.mp4",
-    "dismo": "media/p02_e8a6e2c3.mp4"
+    "ours": "media/p02_743d93d5.mp4",
+    "dismo": "media/p02_63c6a631.mp4"
    },
    "resampled": {
     "a": "media_r/p02_a.mp4",
     "b": "media_r/p02_b.mp4",
     "rows": {
-     "ours": "media_r/p02_e21118a4.mp4",
-     "dismo": "media_r/p02_e8a6e2c3.mp4"
+     "ours": "media_r/p02_743d93d5.mp4",
+     "dismo": "media_r/p02_63c6a631.mp4"
     }
    }
   },
@@ -70,6 +72,7 @@ const STUDY = {
    "motion_b": "wave",
    "target": "knitted_doll",
    "image": "media/p04_target.jpg",
+   "ours_seed": 0,
    "aspect": 1.8,
    "row_aspect": 5.4593,
    "source_aspect": 1.7333,
@@ -95,6 +98,7 @@ const STUDY = {
    "motion_b": "flap",
    "target": "10_paper_boy_wide",
    "image": "media/p05_target.jpg",
+   "ours_seed": 0,
    "aspect": 1.7333,
    "row_aspect": 5.2593,
    "source_aspect": 1.7333,
@@ -120,6 +124,7 @@ const STUDY = {
    "motion_b": "clap_overhead",
    "target": "03_raincoat_girl_wide",
    "image": "media/p06_target.jpg",
+   "ours_seed": 0,
    "aspect": 1.7333,
    "row_aspect": 5.2593,
    "source_aspect": 1.7333,
@@ -145,6 +150,7 @@ const STUDY = {
    "motion_b": "jump",
    "target": "clay_hiker",
    "image": "media/p07_target.jpg",
+   "ours_seed": 0,
    "aspect": 1.8,
    "row_aspect": 5.4593,
    "source_aspect": 1.7333,
@@ -170,6 +176,7 @@ const STUDY = {
    "motion_b": "walk_across",
    "target": "raincoat_girl",
    "image": "media/p10_target.jpg",
+   "ours_seed": 0,
    "aspect": 1.8,
    "row_aspect": 5.4593,
    "source_aspect": 1.7333,
@@ -195,6 +202,7 @@ const STUDY = {
    "motion_b": "stomp",
    "target": "elderly_man",
    "image": "media/p11_target.jpg",
+   "ours_seed": 0,
    "aspect": 1.8,
    "row_aspect": 5.4593,
    "source_aspect": 1.7333,
@@ -220,6 +228,7 @@ const STUDY = {
    "motion_b": "jump_dance",
    "target": "09_knitted_doll_wide",
    "image": "media/p12_target.jpg",
+   "ours_seed": 0,
    "aspect": 1.7333,
    "row_aspect": 5.2593,
    "source_aspect": 1.7333,
@@ -245,21 +254,22 @@ const STUDY = {
    "motion_b": "fast_punches",
    "target": "kitchen_chef",
    "image": "media/p13_target.jpg",
+   "ours_seed": 2,
    "aspect": 1.8,
    "row_aspect": 5.4593,
    "source_aspect": 1.7333,
    "a": "media/p13_a.mp4",
    "b": "media/p13_b.mp4",
    "rows": {
-    "ours": "media/p13_95ecd76d.mp4",
-    "dismo": "media/p13_9affb7df.mp4"
+    "ours": "media/p13_79a00d50.mp4",
+    "dismo": "media/p13_eeb5d8ef.mp4"
    },
    "resampled": {
     "a": "media_r/p13_a.mp4",
     "b": "media_r/p13_b.mp4",
     "rows": {
-     "ours": "media_r/p13_95ecd76d.mp4",
-     "dismo": "media_r/p13_9affb7df.mp4"
+     "ours": "media_r/p13_79a00d50.mp4",
+     "dismo": "media_r/p13_eeb5d8ef.mp4"
     }
    }
   }
