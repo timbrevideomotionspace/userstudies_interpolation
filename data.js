@@ -148,24 +148,24 @@ const STUDY = {
    "kind": "transition",
    "motion_a": "walk_fwd",
    "motion_b": "jump",
-   "target": "clay_hiker",
+   "target": "wooden_mannequin",
    "image": "media/p07_target.jpg",
-   "ours_seed": 0,
+   "ours_seed": 2,
    "aspect": 1.8,
    "row_aspect": 5.4593,
    "source_aspect": 1.7333,
    "a": "media/p07_a.mp4",
    "b": "media/p07_b.mp4",
    "rows": {
-    "ours": "media/p07_c6638c19.mp4",
-    "dismo": "media/p07_44380d43.mp4"
+    "ours": "media/p07_67bce48d.mp4",
+    "dismo": "media/p07_7aece818.mp4"
    },
    "resampled": {
     "a": "media_r/p07_a.mp4",
     "b": "media_r/p07_b.mp4",
     "rows": {
-     "ours": "media_r/p07_c6638c19.mp4",
-     "dismo": "media_r/p07_44380d43.mp4"
+     "ours": "media_r/p07_67bce48d.mp4",
+     "dismo": "media_r/p07_7aece818.mp4"
     }
    }
   },
