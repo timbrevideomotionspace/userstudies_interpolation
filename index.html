@@ -41,7 +41,7 @@ textarea#comment-t { width: 100%; font: inherit; color: inherit; background: var
 .btn:hover:not(:disabled) { border-color: var(--muted) }
 .btn:disabled { opacity: .4; cursor: default }
 .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink) }
-.btn:focus-visible, .mrow:focus-visible, .linkish:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px }
+.btn:focus-visible, .cell:focus-visible, .linkish:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px }
 .linkish { all: unset; cursor: pointer; color: var(--accent); text-decoration: underline; font-size: .9rem }
 .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center }
 .ka { color: var(--a); font-weight: 700 } .kb { color: var(--b); font-weight: 700 }
@@ -52,22 +52,32 @@ textarea#comment-t { width: 100%; font: inherit; color: inherit; background: var
 .progress { height: 6px; border-radius: 3px; background: var(--line); overflow: hidden } .progress i { display: block; height: 100%; background: var(--accent); transition: width .25s }
 .ask { grid-column: 1 / -1; margin: 0; color: var(--muted) } .ask b { color: var(--ink) }
 .stage { display: grid; gap: 14px; margin-top: 14px; --srch: clamp(110px, 20vh, 200px) }
-.srcs { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap }
-.srcs figure { margin: 0; display: grid; gap: 4px; justify-items: center }
+.srcs { display: flex; gap: 26px; justify-content: center; flex-wrap: wrap }
+.srcs figure { margin: 0; display: grid; gap: 11px; justify-items: center }
 .lab { font: 650 .78rem var(--body); text-transform: uppercase; letter-spacing: .07em; color: var(--muted) }
 .lab.ka, .lab.kb { font-weight: 700 } .lab.ka { color: var(--a) } .lab.kb { color: var(--b) }
-.frame { background: var(--frame); border-radius: 8px; overflow: hidden }
+.frame { background: var(--frame); border-radius: 8px; overflow: hidden; position: relative }
 .frame video, .frame img { width: 100%; height: 100%; object-fit: contain; display: block }
 .srcs .frame { aspect-ratio: var(--sar); height: var(--srch) }
-.srcs .frame.a { box-shadow: 0 0 0 3px var(--a) } .srcs .frame.b { box-shadow: 0 0 0 3px var(--b) } .srcs .frame.t { aspect-ratio: var(--tar) }
-.mrow { all: unset; cursor: pointer; display: grid; gap: 6px; padding: 10px 12px 12px; border-radius: 12px; background: var(--panel);
+.srcs .frame.a, .srcs .frame.b { opacity: var(--dim, 1); transition: box-shadow .2s, opacity .2s }
+.srcs .frame.a { box-shadow: 0 0 0 var(--ring, 3px) var(--a) } .srcs .frame.b { box-shadow: 0 0 0 var(--ring, 3px) var(--b) }
+.share { margin-left: 6px; padding: 1px 7px; border-radius: 999px; color: var(--panel); font-size: .74rem; letter-spacing: 0 }
+.ka .share { background: var(--a) } .kb .share { background: var(--b) } .share:empty { display: none } .srcs .frame.t { aspect-ratio: var(--tar) }
+.mrow { display: grid; gap: 6px; padding: 10px 12px 12px; border-radius: 12px; background: var(--panel);
   border: 2px solid var(--line); transition: border-color .12s, background .12s }
-.mrow:hover { border-color: var(--muted) }
 .mrow.on { border-color: var(--accent); background: var(--accent-soft) }
 .mhead { display: flex; align-items: center; gap: 10px; justify-content: space-between }
 .mname { font-weight: 700; font-size: 1.02rem } .mrow.on .mname { color: var(--accent) }
-.pickmark { font-size: .85rem; font-weight: 650; color: var(--accent) } .mrow:not(.on) .pickmark { visibility: hidden }
-.mrow .frame { aspect-ratio: var(--rar); width: min(100%, calc(var(--rowh) * var(--rar))); margin-inline: auto }
+.choose { padding: 5px 14px } .choose[aria-checked="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink) }
+/* v24: the three steps are separate clips; clicking one plays that step for both methods (one step at a time) */
+.cells { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; width: min(100%, calc(var(--rowh) * var(--rar))); margin-inline: auto }
+.cell { all: unset; cursor: pointer; display: block; border-radius: 8px; min-width: 0 }
+.cell .frame { display: block; aspect-ratio: var(--car); width: 100%; box-shadow: 0 0 0 2px transparent; transition: box-shadow .12s }
+.cell:hover .frame { box-shadow: 0 0 0 2px var(--muted) }
+.cell.playing .frame { box-shadow: 0 0 0 3px var(--ink) }
+.pi { position: absolute; inset: 0; margin: auto; width: 48px; height: 48px; border-radius: 50%; background: rgba(0, 0, 0, .55); pointer-events: none }
+.pi::before { content: ""; position: absolute; left: 18px; top: 14px; border-style: solid; border-width: 10px 0 10px 16px; border-color: transparent transparent transparent #fff }
+.cell.playing .pi { display: none }
 .scale { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; font-size: .78rem; font-weight: 650;
   width: min(100%, calc(var(--rowh) * var(--rar))); margin-inline: auto }
 .scale i { height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--a), var(--b)) }
@@ -97,7 +107,7 @@ pre.dump { max-height: 260px; overflow: auto; background: var(--bg); border: 1px
     <p class="callout"><strong>Please take your time.</strong></p>
     <p>Thank you for taking part. The study is anonymous and it contains 10 questions, which should take about 5-10 minutes to complete.</p>
     <ol class="steps" id="steps"></ol>
-    <p class="muted">All videos loop and play together. Please watch the results carefully before marking your choices. A laptop or desktop screen works best.</p>
+    <p class="muted">Click a video to play that step for both methods side by side; one step plays at a time. Please watch the results carefully before marking your choices. A laptop or desktop screen works best.</p>
     <p class="notice" id="again" hidden>You have already completed this study on this device. Thank you! <button type="button" class="linkish" id="again-go">Take it again anyway</button></p>
     <p class="notice" id="preview" hidden>Preview mode: no answer endpoint is set in config.js, so nothing will be sent.</p>
     <div class="row"><button type="button" class="btn primary" id="start">Start</button></div>
@@ -111,12 +121,13 @@ pre.dump { max-height: 260px; overflow: auto; background: var(--bg); border: 1px
     <p class="ask"><b>Which method, 1 or 2, interpolates better between <span class="ka">motion A</span> and <span class="kb">motion B</span> while properly
       applying the interpolated motions to the target subject?</b> In each row the left video should be closer to motion A, performed by the target
       subject, the right video closer to motion B, and the middle video in between, moving step by step from one to the other. The subject may
-      change its pose as it moves. Click a row to choose the method after a careful examination.</p>
+      change its pose as it moves. Click a video to play that step in both rows (while it plays, the outlines of motion A and B show how much of each
+      it should contain), then press <b>Choose</b> for the better method after a careful examination.</p>
   </header>
   <div class="stage" id="stage">
     <div class="srcs">
-      <figure><span class="lab ka">Motion A</span><div class="frame a" id="fa"></div></figure>
-      <figure><span class="lab kb">Motion B</span><div class="frame b" id="fb"></div></figure>
+      <figure><span class="lab ka">Motion A<span class="share" id="sa"></span></span><div class="frame a" id="fa"></div></figure>
+      <figure><span class="lab kb">Motion B<span class="share" id="sb"></span></span><div class="frame b" id="fb"></div></figure>
       <figure><span class="lab">Target Subject</span><div class="frame t" id="ft"></div></figure>
     </div>
     <div id="rows" class="stage" style="margin-top:0" role="radiogroup" aria-label="Methods"></div>
@@ -185,15 +196,38 @@ if (!endpoint) $('preview').hidden = false;
 $('again-go').onclick = () => { $('again').hidden = true; $('start').hidden = false; $('start').focus(); };
 $('start').onclick = () => { started = new Date().toISOString(); $('intro').hidden = true; $('trial').hidden = false; show(0); };
 
-function sync(vs) {                         // motion A restarts everything, so all clips stay in step
-  const master = vs[0], restart = () => vs.forEach(v => { try { v.currentTime = 0; v.play().catch(() => {}); } catch (e) {} });
-  master.addEventListener('ended', restart); let ready = 0;
-  vs.forEach(v => v.addEventListener('canplay', () => { if (++ready === vs.length) restart(); }, {once: true}));
-  setTimeout(() => { if (ready < vs.length && vs[0].isConnected) restart(); }, 2000);
+// v24: motions A and B loop on their own; clicking a video plays that step (one weight) for both methods from the start, together with A and B
+// (all restart when A ends); the other steps stay paused; clicking the playing step pauses it. While step w plays, A's outline and badge show
+// its share 1 - w and B's show w (the less involved source is dimmed; equal at w = 0.5).
+const restart = vs => vs.forEach(v => { try { v.currentTime = 0; v.play().catch(() => {}); } catch (e) {} });
+let P = null;
+function player() {
+  const a = $('fa').querySelector('video'), b = $('fb').querySelector('video'), cells = [...$('rows').querySelectorAll('.cell')];
+  P = {a, b, on: -1, col: k => cells.filter(c => +c.dataset.k === k).map(c => c.querySelector('video'))};
+  a.addEventListener('ended', () => restart([a, b, ...(P.on >= 0 ? P.col(P.on) : [])]));
+  let ready = 0; const go = () => { if (P.a === a && P.on < 0) restart([a, b]); };
+  [a, b].forEach(v => v.addEventListener('canplay', () => { if (++ready === 2) go(); }, {once: true}));
+  setTimeout(() => { if (ready < 2 && a.isConnected) go(); }, 2000);
+  paintPlay();
+}
+function play(k) {
+  const was = P.on;
+  if (was >= 0) P.col(was).forEach(v => { v.pause(); if (was !== k) try { v.currentTime = 0; } catch (e) {} });
+  if (was === k) P.on = -1; else { P.on = k; restart([P.a, P.b, ...P.col(k)]); }
+  paintPlay();
+}
+function paintPlay() {
+  $('rows').querySelectorAll('.cell').forEach(c => { const on = +c.dataset.k === P.on; c.classList.toggle('playing', on);
+    c.setAttribute('aria-label', `${on ? 'Pause' : 'Play'} step ${+c.dataset.k + 1} for both methods`); });
+  const w = P.on < 0 ? null : STUDY.weights[P.on];
+  [['fa', 'sa', w == null ? null : 1 - w], ['fb', 'sb', w]].forEach(([f, l, x]) => {
+    const fr = $(f); fr.style.setProperty('--ring', x == null ? '3px' : `${Math.round(2 + 8 * x)}px`);
+    fr.style.setProperty('--dim', x == null || x >= .5 ? 1 : .5); $(l).textContent = x == null ? '' : `${Math.round(100 * x)}%`;
+  });
 }
 
 function preload(p) {                       // warm the next example's clips so it starts at once
-  warm = !p ? [] : [V(p.t).a, V(p.t).b, ...p.shown.map(k => V(p.t).rows[k])].map(src => {
+  warm = !p ? [] : [V(p.t).a, V(p.t).b, ...p.shown.flatMap(k => V(p.t).cells[k])].map(src => {
     const v = document.createElement('video'); v.muted = true; v.preload = 'auto'; v.src = src; return v; });
   if (p) { const im = new Image(); im.src = p.t.image; warm.push(im); }
 }
@@ -202,27 +236,31 @@ const vid = src => `<video src="${src}" muted playsinline preload="auto"></video
 function show(i) {
   if (cur >= 0) plan[cur].ms += performance.now() - t0;
   cur = i; t0 = performance.now(); const p = plan[i], t = p.t, st = $('stage');
-  st.style.setProperty('--sar', t.source_aspect); st.style.setProperty('--rar', t.row_aspect); st.style.setProperty('--tar', t.aspect);
+  st.style.setProperty('--sar', t.source_aspect); st.style.setProperty('--rar', t.row_aspect); st.style.setProperty('--tar', t.aspect); st.style.setProperty('--car', t.cell_aspect);
   $('count').textContent = `Example ${i + 1} of ${plan.length}`;
   $('prog').style.width = `${100 * i / plan.length}%`;
   $('fa').innerHTML = vid(V(t).a); $('fb').innerHTML = vid(V(t).b); $('ft').innerHTML = `<img src="${t.image}" alt="Target subject">`;
-  $('rows').innerHTML = p.shown.map((k, j) => `<button type="button" class="mrow" role="radio" data-j="${j}">
-    <span class="mhead"><span class="mname">${NAMES[j]}</span><span class="pickmark">Your choice</span></span>
-    <span class="frame">${vid(V(t).rows[k])}</span>
-    <span class="scale"><span class="ka">Motion A</span><i></i><span class="kb">Motion B</span></span></button>`).join('');
-  sync([$('fa').querySelector('video'), $('fb').querySelector('video'), ...$('rows').querySelectorAll('video')]);
+  $('rows').innerHTML = p.shown.map((k, j) => `<div class="mrow" data-j="${j}">
+    <span class="mhead"><span class="mname">${NAMES[j]}</span><button type="button" class="btn choose" role="radio" data-j="${j}">Choose</button></span>
+    <span class="cells">${V(t).cells[k].map((f, c) => `<button type="button" class="cell" data-k="${c}"><span class="frame">${vid(f + '#t=0.001')}<span class="pi" aria-hidden="true"></span></span></button>`).join('')}</span>
+    <span class="scale"><span class="ka">Motion A</span><i></i><span class="kb">Motion B</span></span></div>`).join('');
+  player();
   $('back').disabled = i === 0; $('next').textContent = i === plan.length - 1 ? 'Finish' : 'Next';
   paint(); preload(plan[i + 1]); window.scrollTo(0, 0);
 }
 
 function paint() {
   const p = plan[cur];
-  $('rows').querySelectorAll('.mrow').forEach(b => { const on = +b.dataset.j === p.pick; b.classList.toggle('on', on); b.setAttribute('aria-checked', on); });
-  $('choice').innerHTML = p.pick == null ? 'Click the row of the method that interpolates better.' : `Your choice: <b>${NAMES[p.pick]}</b>`;
+  $('rows').querySelectorAll('.mrow').forEach(b => { const on = +b.dataset.j === p.pick, c = b.querySelector('.choose'); b.classList.toggle('on', on);
+    c.setAttribute('aria-checked', on); c.textContent = on ? 'Your choice' : 'Choose'; c.setAttribute('aria-label', `Choose ${NAMES[+b.dataset.j]}`); });
+  $('choice').innerHTML = p.pick == null ? 'Press Choose on the method that interpolates better.' : `Your choice: <b>${NAMES[p.pick]}</b>`;
   $('next').disabled = p.pick == null;
 }
 
-$('rows').addEventListener('click', e => { const b = e.target.closest('.mrow'); if (b) { plan[cur].pick = +b.dataset.j; paint(); } });
+$('rows').addEventListener('click', e => {
+  const c = e.target.closest('.choose'); if (c) { plan[cur].pick = +c.dataset.j; paint(); return; }
+  const v = e.target.closest('.cell'); if (v) play(+v.dataset.k);
+});
 $('back').onclick = () => cur > 0 && show(cur - 1);
 $('next').onclick = () => { if ($('next').disabled) return; cur < plan.length - 1 ? show(cur + 1) : toComment(); };
 // after the last question: an optional free-text "what did you base your choices on?" (user 2026-11-01), then the answers are sent
