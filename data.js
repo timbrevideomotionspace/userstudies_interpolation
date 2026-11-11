@@ -1,7 +1,7 @@
 // generated -- do not edit by hand
 const STUDY = {
  "study": "interpolation",
- "version": 26,
+ "version": 27,
  "seed": 20261026,
  "methods": [
   "ours",
