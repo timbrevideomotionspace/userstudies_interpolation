@@ -13,15 +13,15 @@
    study; media/ keeps the 24 fps originals); sent as `videos`. Tokens match the ranking study. */
 :root {
   --bg: #f4f5f7; --panel: #ffffff; --ink: #15171f; --muted: #5b6070; --line: #d9dce4; --accent: #2f5bd3; --accent-ink: #ffffff;
-  --accent-soft: #e4eafb; --frame: #0b0c10; --warn: #9a3412; --warn-soft: #fdeee4; --a: #0f766e; --b: #b45309;
+  --accent-soft: #e4eafb; --frame: #0b0c10; --warn: #9a3412; --warn-soft: #fdeee4; --call-bg: #fff4d6; --call-line: #e0a800; --a: #0f766e; --b: #b45309;
   --body: "Instrument Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #111217; --panel: #1a1c24; --ink: #e9eaf0; --muted: #9da1b1; --line: #2c2f3b; --accent: #8ea8ff; --accent-ink: #0d1020;
-  --accent-soft: #232a45; --frame: #000000; --warn: #fdba74; --warn-soft: #3a2414; --a: #5eead4; --b: #fbbf24; color-scheme: dark } }
+  --accent-soft: #232a45; --frame: #000000; --warn: #fdba74; --warn-soft: #3a2414; --call-bg: #3a3112; --call-line: #e0a800; --a: #5eead4; --b: #fbbf24; color-scheme: dark } }
 :root[data-theme="dark"] {
   --bg: #111217; --panel: #1a1c24; --ink: #e9eaf0; --muted: #9da1b1; --line: #2c2f3b; --accent: #8ea8ff; --accent-ink: #0d1020;
-  --accent-soft: #232a45; --frame: #000000; --warn: #fdba74; --warn-soft: #3a2414; --a: #5eead4; --b: #fbbf24; color-scheme: dark }
+  --accent-soft: #232a45; --frame: #000000; --warn: #fdba74; --warn-soft: #3a2414; --call-bg: #3a3112; --call-line: #e0a800; --a: #5eead4; --b: #fbbf24; color-scheme: dark }
 * { box-sizing: border-box }
 html, body { margin: 0 }
 body { background: var(--bg); color: var(--ink); font: 15px/1.55 var(--body); -webkit-font-smoothing: antialiased }
@@ -34,6 +34,7 @@ h1 { font: 700 1.75rem/1.15 var(--body); margin: 0; letter-spacing: -.015em; tex
 h2 { font: 650 1.3rem/1.2 var(--body); margin: 0 }
 .card p { margin: 0 } .muted { color: var(--muted) }
 ol.steps { margin: 0; padding-left: 1.3em; display: grid; gap: 8px }
+.callout { background: var(--call-bg); border-left: 4px solid var(--call-line); border-radius: 8px; padding: 10px 14px }
 .notice { background: var(--warn-soft); color: var(--warn); border-radius: 8px; padding: 10px 14px; font-size: .92rem }
 textarea#comment-t { width: 100%; font: inherit; color: inherit; background: var(--bg); border: 1px solid var(--line); border-radius: 9px; padding: 10px 12px; resize: vertical }
 .btn { cursor: pointer; border: 1px solid var(--line); background: var(--panel); padding: 9px 18px; border-radius: 9px; font-weight: 600 }
@@ -93,9 +94,10 @@ pre.dump { max-height: 260px; overflow: auto; background: var(--bg); border: 1px
 <main id="intro" class="screen">
   <div class="card">
     <h1>User study on motion interpolation</h1>
+    <p class="callout"><strong>Please take your time.</strong></p>
     <p>Thank you for taking part. The study is anonymous and it contains 10 questions, which should take about 5-10 minutes to complete.</p>
     <ol class="steps" id="steps"></ol>
-    <p class="muted">All videos loop and play together. Please take your time and watch the results carefully before marking your choices. A laptop or desktop screen works best.</p>
+    <p class="muted">All videos loop and play together. Please watch the results carefully before marking your choices. A laptop or desktop screen works best.</p>
     <p class="notice" id="again" hidden>You have already completed this study on this device. Thank you! <button type="button" class="linkish" id="again-go">Take it again anyway</button></p>
     <p class="notice" id="preview" hidden>Preview mode: no answer endpoint is set in config.js, so nothing will be sent.</p>
     <div class="row"><button type="button" class="btn primary" id="start">Start</button></div>
