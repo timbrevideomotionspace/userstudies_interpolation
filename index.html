@@ -36,7 +36,8 @@ h2 { font: 650 1.3rem/1.2 var(--body); margin: 0 }
 ol.steps { margin: 0; padding-left: 1.3em; display: grid; gap: 8px }
 .callout { background: var(--call-bg); border-left: 4px solid var(--call-line); border-radius: 8px; padding: 10px 14px }
 .notice { background: var(--warn-soft); color: var(--warn); border-radius: 8px; padding: 10px 14px; font-size: .92rem }
-textarea#comment-t { width: 100%; font: inherit; color: inherit; background: var(--bg); border: 1px solid var(--line); border-radius: 9px; padding: 10px 12px; resize: vertical }
+.emailf { display: grid; gap: 6px } .emailf label { font-weight: 600 }
+textarea#comment-t, input#email-t { width: 100%; font: inherit; color: inherit; background: var(--bg); border: 1px solid var(--line); border-radius: 9px; padding: 10px 12px; resize: vertical }
 .btn { cursor: pointer; border: 1px solid var(--line); background: var(--panel); padding: 9px 18px; border-radius: 9px; font-weight: 600 }
 .btn:hover:not(:disabled) { border-color: var(--muted) }
 .btn:disabled { opacity: .4; cursor: default }
@@ -111,6 +112,8 @@ pre.dump { max-height: 260px; overflow: auto; background: var(--bg); border: 1px
     <p class="notice" id="closed" hidden>This study has reached its number of participants and is now closed. Thank you for your interest!</p>
     <p class="notice" id="again" hidden>You have already completed this study on this device. Thank you! <button type="button" class="linkish" id="again-go">Take it again anyway</button></p>
     <p class="notice" id="preview" hidden>Preview mode: no answer endpoint is set in config.js, so nothing will be sent.</p>
+    <div class="emailf" id="emailf"><label for="email-t">Your email (optional)</label>
+      <input type="email" id="email-t" maxlength="200" autocomplete="email" placeholder="Optional"></div>
     <div class="row"><button type="button" class="btn primary" id="start">Start</button></div>
   </div>
 </main>
@@ -192,12 +195,12 @@ $('steps').innerHTML = [
    interpolated motions to the target subject. The target subject is expected to change its pose as it moves, but it should remain the same
    subject. Note that the order of the methods is shuffled for each question.`,
 ].map(s => `<li>${s}</li>`).join('');
-if (store.get(DONE_KEY)) { $('again').hidden = false; $('start').hidden = true; }
+if (store.get(DONE_KEY)) { $('again').hidden = false; $('start').hidden = true; $('emailf').hidden = true; }
 if (!endpoint) $('preview').hidden = false;
 // cap (user 2026-11-11): the sheet takes 42 more submissions per study; once full, the intro says so and Start is hidden (no answer = stays open)
 if (endpoint) fetch(`${endpoint}?count=${encodeURIComponent(STUDY.study)}`).then(r => r.json())
-  .then(d => { if (d && d.open === false) { $('closed').hidden = false; $('start').hidden = true; $('again').hidden = true; } }).catch(() => {});
-$('again-go').onclick = () => { $('again').hidden = true; $('start').hidden = false; $('start').focus(); };
+  .then(d => { if (d && d.open === false) { $('closed').hidden = false; $('start').hidden = true; $('emailf').hidden = true; $('again').hidden = true; } }).catch(() => {});
+$('again-go').onclick = () => { $('again').hidden = true; $('start').hidden = false; $('emailf').hidden = false; $('start').focus(); };
 $('start').onclick = () => { started = new Date().toISOString(); $('intro').hidden = true; $('trial').hidden = false; show(0); };
 
 // v24: motions A and B loop on their own; clicking a video plays that step (one weight) for both methods from the start, together with A and B
@@ -279,16 +282,16 @@ document.addEventListener('keydown', e => {
 window.addEventListener('beforeunload', e => { if (started && !payload) { e.preventDefault(); e.returnValue = ''; } });
 
 function finish() {
-  const comment = $('comment-t').value.trim();
+  const comment = $('comment-t').value.trim(), email = $('email-t').value.trim();
   const fin = new Date().toISOString(), scr = `${screen.width}x${screen.height}`;
   const columns = ['submission', 'participant', 'videos', 'position', 'trial', 'kind', 'motion_a', 'motion_b', 'target', 'choice', 'ours_chosen',
-    'shown', 'seconds', 'started', 'finished', 'screen', 'user_agent', 'version', 'comment'];   // comment: first row only   // version last: the sheet's existing header stays aligned
+    'shown', 'seconds', 'started', 'finished', 'screen', 'user_agent', 'version', 'comment', 'email'];   // email: v26, user 2026-11-11, first row only   // comment: first row only   // version last: the sheet's existing header stays aligned
   const rows = plan.map((p, n) => {
     const choice = p.shown[p.pick];
     return [sub, pid, mode, n + 1, p.t.id, p.t.kind, p.t.motion_a, p.t.motion_b, p.t.target, choice, choice === 'ours' ? 1 : 0,
-      p.shown.map((k, j) => `${j + 1}=${k}`).join(' '), Math.round(p.ms / 100) / 10, started, fin, scr, navigator.userAgent, STUDY.version, n ? '' : comment];
+      p.shown.map((k, j) => `${j + 1}=${k}`).join(' '), Math.round(p.ms / 100) / 10, started, fin, scr, navigator.userAgent, STUDY.version, n ? '' : comment, n ? '' : email];
   });
-  payload = {study: STUDY.study, videos: mode, version: STUDY.version, seed: STUDY.seed, submission: sub, participant: pid, started, finished: fin, comment, columns, rows};
+  payload = {study: STUDY.study, videos: mode, version: STUDY.version, seed: STUDY.seed, submission: sub, participant: pid, started, finished: fin, comment, email, columns, rows};
   $('comment').hidden = true; $('done').hidden = false; send();
 }
 
